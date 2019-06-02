@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import ReactAppDefault from './App';
+
+function App() {
+    return (
+        <BrowserRouter>
+            <Route exact path='/' component={ReactAppDefault} />
+        </BrowserRouter>
+    )
+};
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
