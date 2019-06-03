@@ -4,11 +4,15 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import ReactAppDefault from './App';
+import dataVisualisationHomePage from './datavisualisation/dataVisualisationHomePage';
+import oldDataVisualisationHomePage from './datavisualisation/DataVizHome';
 
 function App() {
     return (
         <BrowserRouter>
             <Route exact path='/' component={ReactAppDefault} />
+            <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
+            <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
         </BrowserRouter>
     )
 };
