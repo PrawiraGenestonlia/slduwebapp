@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Select } from 'antd';
-import E7_EventTable from '../../DataViz/Components/E7_EventTable'
-import { Input } from 'antd';
+import E7_EventTable from '../../datavisualisation/components/E7_EventTable'
+import { Input,Layout,Row,Col } from 'antd';
+
 
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 const Option = Select.Option;
 
 const Search = Input.Search; 
 
-export default class SearchFileContents extends Component {
+export default class ViewEvents extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,27 +66,31 @@ export default class SearchFileContents extends Component {
     );
 
     return (
-      <div className="viewevents">
-        <div ClassName="container">
-          <p>Select File</p>
-          <Select showSearch
-            style={{ width: 200 }}
-            placeholder="Select a File"
-            optionFilterProp="children"
-            onChange={this.handleChange}>
-            {eventoptions.map(opt => {
-              return (<Option value={opt.value}>{opt.label}</Option>
-              )
-            })}
-          </Select>
-          <p>{}</p>
-          <p>Search Matriculation Number from Student Master List</p>
-            <Input placeholder="matriculation number" onChange={value=>this.Search(value.target.value)} onPressEnter={value=>this.Search(value.target.value)} allowClear />
-            <p>{}</p>
-            
-          <E7_EventTable data={this.state.event} shouldShow={true} colors={DataVizColors} />
-        </div>
-      </div>
+          <div>
+            <Row>
+            <p>Select File</p>
+              <Select showSearch
+              style={{ width: 200 }}
+              placeholder="Select a File"
+              optionFilterProp="children"
+              onChange={this.handleChange}>
+              {eventoptions.map(opt => {
+                return (<Option value={opt.value}>{opt.label}</Option>
+                )
+              })}
+              </Select>
+              <p>{}</p>
+              <E7_EventTable data={this.state.event} shouldShow={true} colors={DataVizColors} />
+            </Row>
+          </div>
     )
   }
 }
+
+/*<select>
+          <option>Select an Event</option>
+          {this.state.Events.map(events => <option key={events.TABLE_NAME}>{events.TABLE_NAME}</option>)}
+          </select>
+          
+          
+          */

@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import ReactAppDefault from './App';
 import dataVisualisationHomePage from './datavisualisation/dataVisualisationHomePage';
 import oldDataVisualisationHomePage from './datavisualisation/DataVizHome';
+import HomePage from './UI/Pages/HomePage';
+import SearchPage from './UI/Pages/SearchPage';
+import UploadFiles from './UI/Pages/UploadFiles';
+import ViewFiles from './UI/Pages/ViewFiles';
 
 function App() {
     return (
         <BrowserRouter>
-            <Route exact path='/' component={ReactAppDefault} />
+            <Route exact path='/' component={HomePage} />
             <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
             <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
+            <Route exact path='/Search' component={SearchPage} />
+            <Route exact path='/Upload' componenet={UploadFiles} />
+            <Route exact path='/ViewFiles' component={ViewFiles} />
         </BrowserRouter>
     )
 };
