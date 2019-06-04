@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown, Button, Icon, message, } from 'antd';
 
-export default class D1_MasterDropdown extends Component {
+export default class D2_EventDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {

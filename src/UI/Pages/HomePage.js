@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PageHeader from '../ContentComponents/PageHeader';
-import Sidebar from '../ContentComponents/Sidebar';
-import HomePageContent from '../ContentComponents/HomePageContent';
+import PageHeader from '../Components/PageHeader';
+import Sidebar from '../Components/Sidebar';
+import HomePageContent from '../ComponentContents/HomePageContent';
 import {Layout} from 'antd';
 
 export default class HomePage extends Component {

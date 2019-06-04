@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PageHeader from '../ContentComponents/PageHeader';
-import Sidebar from '../ContentComponents/Sidebar';
-import UploadContent from '../ContentComponents/UploadContent';
+import PageHeader from '../Components/PageHeader';
+import Sidebar from '../Components/Sidebar';
+import UploadContent from '../ComponentContents/UploadContent';
 import {Layout} from 'antd';
 
 export default class UploadFiles extends Component {

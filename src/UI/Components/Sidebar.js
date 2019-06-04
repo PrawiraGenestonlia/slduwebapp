@@ -47,7 +47,7 @@ export default class Sidebar extends Component {
             <Menu.Item key="4">
               <Icon type="upload" />
               <span>Upload</span>
-              <a href="/Upload">Search</a>
+              <a href="/UploadFiles">Search</a>
             </Menu.Item>
 
 

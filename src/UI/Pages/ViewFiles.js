@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PageHeader from '../ContentComponents/PageHeader';
-import Sidebar from '../ContentComponents/Sidebar';
-import ViewContent from '../ContentComponents/ViewContent';
+import PageHeader from '../Components/PageHeader';
+import Sidebar from '../Components/Sidebar';
+import ViewContent from '../Components/ViewContent';
 import {Layout} from 'antd';
 
 export default class ViewFiles extends Component {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Layout} from 'antd';
 import 'antd/dist/antd.css';
 import '../../index.css';
-import SearchFileContents from './SearchFileContents';
+import SearchFileContents from '../ComponentContents/SearchFileContents';
 
 const { Content } = Layout;
 

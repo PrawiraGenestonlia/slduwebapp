@@ -17,7 +17,7 @@ function App() {
             <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
             <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
             <Route exact path='/Search' component={SearchPage} />
-            <Route exact path='/Upload' componenet={UploadFiles} />
+            <Route exact path='/UploadFiles' component={UploadFiles} />
             <Route exact path='/ViewFiles' component={ViewFiles} />
         </BrowserRouter>
     )
