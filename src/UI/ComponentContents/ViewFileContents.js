@@ -64,7 +64,7 @@ export default class ViewEvents extends Component {
               })}
               </Select>
               <p>{}</p>
-              <E7_EventTable data={this.state.event} shouldShow={true} colors={DataVizColors} />
+              <DynamicTable data={this.state.event} />
               <p>{}</p>
               
             </Row>
@@ -78,5 +78,6 @@ export default class ViewEvents extends Component {
           {this.state.Events.map(events => <option key={events.TABLE_NAME}>{events.TABLE_NAME}</option>)}
           </select>
           
+          <E7_EventTable data={this.state.event} shouldShow={true} colors={DataVizColors} />
           
           */

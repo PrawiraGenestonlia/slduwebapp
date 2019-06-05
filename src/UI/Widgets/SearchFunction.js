@@ -1,78 +1,85 @@
-import React, { Component } from 'react';
-import 'antd/dist/antd.css';
-import '../../index.css';
-import { Select, message } from 'antd';
+import React, {Component} from 'react';
 import axios from 'axios';
+import {Select} from 'antd';
 
-const onClick = ({ key }) => {
-  message.info(`Search by ${key}`);
-};
+/*This is a search function whereby users can select how they want to search. For example, student name/matric number.*/
 
-const { Option } = Select;
-const SearchType = ['Student Name', 'Event Name'];
+const {Option} = Select;
+const SearchType = ['EventName','MatriculationNumber','StudentName'];
 
+//I need to convert this variable into a state 
 var SearchData = {
-  'Student Name': ['Hangzhou', 'Ningbo', 'Wenzhou'],
-  'Event Name': [],
+        EventName: [],
+        MatriculationNumber: [],
+        StudentName: []
 };
 
-
-
-export default class SearchFunction extends Component {
-    state = {
-        search: SearchData[SearchType[0]],
-        data: SearchData[SearchType[0]][0],
-      };
-    
-      handleSearchChange = value => {
-        this.setState({
-          search: SearchData[value],
-          //data: SearchData[value][0],
-        });
-        if ( SearchData[value] === 'Event Name'){
-            axios.get('http://localhost:8080/api/events')
-            .then(response =>
-            this.setState({ 'Event Name': response.data })
-            )   
-            .catch(error => console.log(error));
+export default class SearchFunction extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            searchfunction: SearchData[SearchType[0]],
+            data: SearchData[SearchType[0]],
         }
-
-      };
+    };
     
-      onSearchData = value => {
-        this.setState({
-          data: value,
+    handleSearchFunctionChange = value =>{
+
+    this.setState({
+            searchfunction: SearchData[value],
+            data: SearchData[SearchType[value][0]]
         });
-      };
+    };
+
+    handSearchDataChange = value => {
+        this.setState({
+            data: value,
+        });
+    };
+
+    componentDidMount(){
+        axios.get(`localhost:8080/api/events`)
+        .then(response => 
+            this.setState({EventName: response.data})
+        ).catch(error => console.log(error));
     
-      render() {
-        const { search } = this.state;
-        return (
-          <div>
-            <p> Search Function </p>
-            <p>{}</p>
+        axios.get(`http://localhost:8080/api/students/?matricnumber`)
+        .then(response =>
+            this.setState({MatriculationNumber: response.data})
+        ).catch(error => console.log(error));
+        
+        axios.get(`http://localhost:8080/api/students/?studentname`)
+        .then(response =>
+            this.setState({StudentName: response.data})
+        ).catch(error => console.log(error));
 
-            <Select
-              defaultValue={SearchType[0]}
-              style={{ width: 200 }}
-              onChange={this.handleSearchChange}
-            >
-              {SearchType.map(type => (
-                <Option key={type}>{type}</Option>
-              ))}
-            </Select>
+    };
+    
+    render(){
+        const{searchfunction} = this.state;
+        return(
+            <div>
+                <Select
+                    defaultValue={SearchType[0]}
+                    style={{ width:120}}
+                    onChange={this.handleSearchFunctionChange}
+                >
+                    {SearchType.map(type=> (
+                        <Option key={type}>{type}</Option>
+                    ))}
+                </Select>
 
-            <p>{}</p>
-            <Select
-              style={{ width: 200 }}
-              value={this.state.data}
-              onChange={this.onSearchData}
-            >
-              {search.map(city => (
-                <Option key={city}>{city}</Option>
-              ))}
-            </Select>
-          </div>
+                <Select
+                    value={this.state.data}
+                    style={{ width:120}}
+                    onChange={this.handleSearchDataChange}
+                >
+                    {searchfunction.map(data=> (
+                        <Option key={data}>{data}</Option>
+                    ))}
+                </Select>
+            </div>
         );
-      }
     }
+
+}

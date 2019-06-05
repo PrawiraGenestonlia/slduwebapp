@@ -77,7 +77,7 @@ export default class DynamicTable extends Component {
         else
             this.setState({ columns: staticColumns });
     }
-    componentDidUpdate() {
+    componentWillMount() {
         if ((this.state.shouldDynamic === "y" || this.state.shouldDynamic === "Y"))
             this.setState({ columns: columnsBuilder(this.state.columnsArr) });
         else
