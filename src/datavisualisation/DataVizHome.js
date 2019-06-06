@@ -31,7 +31,7 @@ import {
   D2_EventDropdown_Data,
   P9_SkillSetRadarChart_Data,
   N1_SocialNetwork_Data,
-} from './sampleData.js';
+} from './SampleData.js';
 
 
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];

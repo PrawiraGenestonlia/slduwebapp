@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import PageHeader from '../Components/PageHeader';
+import PageHeader from '../Components/PageHeader.js';
 import Sidebar from '../Components/Sidebar';
 import HomePageContent from '../ComponentContents/HomePageContent';
-import {Layout} from 'antd';
+import { Layout } from 'antd';
 
 export default class HomePage extends Component {
-  render(){
+  render() {
     return (
       <Layout>
         <PageHeader />
-        
+
         <Layout>
-            <Sidebar keys={['1']}/> 
-            <HomePageContent />
+          <Sidebar keys={['1']} />
+          <HomePageContent />
         </Layout>
 
       </Layout>
     )
-}
+  }
 }
 
 //<h1>This is the homepage</h1>
