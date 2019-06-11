@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider } from 'antd';
 //
-import { DynamicTableData } from './SampleData.js';
+import { DynamicTableData } from './sampleData.js';
 //
 import DynamicTable from './components/dynamicTable.js';
 

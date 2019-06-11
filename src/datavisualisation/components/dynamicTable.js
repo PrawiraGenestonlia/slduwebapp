@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Table, } from 'antd';
 
+const pagination = { position: 'none' };
+
 const staticColumns = [{
     title: 'Timestamp',
     dataIndex: 'TIMESTAMP',
@@ -8,8 +10,8 @@ const staticColumns = [{
     render: text => <font>{text}</font>,
 }, {
     title: 'Full Name',
-    dataIndex: 'FULLNAME',
-    key: 'FULLNAME',
+    dataIndex: 'STUDENTNAME',
+    key: 'STUDENTNAME',
     width: '20%',
     render: text => <font>{text}</font>,
 }, {
@@ -86,7 +88,7 @@ export default class DynamicTable extends Component {
     render() {
         return (
             <div>
-                <Table columns={this.state.columns} dataSource={this.state.data} />
+                <Table  pagination={false} columns={this.state.columns} dataSource={this.state.data} />
             </div>
         )
     }

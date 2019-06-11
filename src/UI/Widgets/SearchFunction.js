@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Select } from 'antd';
 import { throwStatement } from '@babel/types';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
+import DynamicTable from '../../datavisualisation/components/dynamicTable';
 
 /*This is a search function whereby users can select how they want to search. For example, student name/matric number.*/
 
@@ -34,7 +35,7 @@ export default class SearchFunction extends Component {
     this.handlePickData(value);
   };
 
-  handleSeachDataChange = value => {
+  handleSearchDataChange = value => {
     if (this.state.searchfunction == "EventName") {
       axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
         .then(response => {
@@ -54,7 +55,7 @@ export default class SearchFunction extends Component {
         .then(response =>
           this.setState({ event: response.data }))
         .catch(error => console.log(error));
-    }
+    } 
     console.log("tableData:", this.state.tableData);
 
   };
@@ -76,8 +77,9 @@ export default class SearchFunction extends Component {
         allData.StudentName = response.data
       ).catch(error => console.log(error));
     this.setState({ allData: allData });
+    
   }
-
+  
   handlePickData = (value) => {
     let { allData } = this.state;
     let selectedData = [];
@@ -112,6 +114,7 @@ export default class SearchFunction extends Component {
   render() {
     return (
       <div>
+        <p>Select a search function</p>
         <Select
           showSearch
           placeholder="Select an option"
@@ -121,18 +124,19 @@ export default class SearchFunction extends Component {
             <Option key={type}>{type}</Option>
           ))}
         </Select>
-
+        <p>{}</p>
+        <p>Search</p>
         <Select
           showSearch
           placeholder="Select a target"
           style={{ width: 120 }}
-          onChange={this.handleSeachDataChange} >
+          onChange={this.handleSearchDataChange} >
           {this.state.data.map(data => (
             <Option key={data}>{data}</Option>
           ))}
         </Select>
 
-        {this.state.tableData.length ? <E7_EventTable data={this.state.tableData} shouldShow={true} colors={DataVizColors} /> : null}
+        {this.state.tableData.length ? <DynamicTable data={this.state.tableData} shouldShow={true} colors={DataVizColors} /> : null}
       </div>
     );
   }

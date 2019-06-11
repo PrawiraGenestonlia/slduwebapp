@@ -53,11 +53,11 @@ export default class SearchFileContents extends Component {
 
 
   componentDidMount() {
-    axios.get('http://localhost:8080/api/events')
+    /*axios.get('http://localhost:8080/api/events')
       .then(response =>
         this.setState({ Events: response.data })
       )
-      .catch(error => console.log(error));
+      .catch(error => console.log(error)); */
   }
 
   render() {
@@ -70,31 +70,8 @@ export default class SearchFileContents extends Component {
 
       <div className="viewevents">
         <div ClassName="container">
-          <p>Select File</p>
-          <Select showSearch
-            style={{ width: 200 }}
-            placeholder="Select a File"
-            optionFilterProp="children"
-            onChange={this.handleChange}>
-            {eventoptions.map(opt => {
-              return (<Option value={opt.value}>{opt.label}</Option>
-              )
-            })}
-          </Select>
-          <p>{}</p>
-
-          
+          <p>{}</p>         
           <SearchFunction />
-          <p>{}</p>
-
-          <p>Search Matriculation Number from Student Master List</p>
-          <Input placeholder="matriculation number" onChange={value=>this.Search(value.target.value)} onPressEnter={value=>this.Search(value.target.value)} allowClear />
-          <p>{}</p>
-
-          <E7_EventTable data={this.state.event} shouldShow={true} colors={DataVizColors} />
-          <p>{}</p>
-
-          <D1_MasterDropdown data={this.state.Events} shouldShow={true} colors={DataVizColors} />
         </div>
       </div>
     )
