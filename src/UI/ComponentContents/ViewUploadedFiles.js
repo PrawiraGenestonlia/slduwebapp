@@ -54,6 +54,7 @@ export default class ViewUploadedFiles extends Component{
 
         axios.get(`http://localhost:8080/api/uploadedfiles`)
         .then(response =>
+            //network server error
             this.setState({Files:response.data})
         ).catch(error => console.log(error));
 

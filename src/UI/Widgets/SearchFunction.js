@@ -4,6 +4,7 @@ import { Select } from 'antd';
 import { throwStatement } from '@babel/types';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
+import responsiveObserve from 'antd/lib/_util/responsiveObserve';
 
 /*This is a search function whereby users can select how they want to search. For example, student name/matric number.*/
 
@@ -17,13 +18,13 @@ export default class SearchFunction extends Component {
     this.state = {
       refresh: false,
       searchfunction: SearchType[0],
-      allData: {
-        EventName: [],
-        MatriculationNumber: [],
-        StudentName: []
-      },
+      allData: [],
       data: [],
-      tableData: [],
+      tableData:{
+        dynamic:"",
+        columns:[],
+        data:[]
+      },
     }
   };
 
@@ -38,24 +39,42 @@ export default class SearchFunction extends Component {
   handleSearchDataChange = value => {
     if (this.state.searchfunction == "EventName") {
       axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
-        .then(response => {
-          this.setState({ tableData: response.data });
+        .then((response) => {
+          this.setState({ tableData : {
+            dynamic:response.data.dynamic,
+            columns:response.data.columns,
+            data: response.data.data
+          }
+          });
           console.log(response.data);
+          console.log(this.state.tableData);
         })
         .catch(error => console.log(error));
     }
-    else if (this.state.searchfunction == "MatriculationNumber") {
+
+    console.log(this.state.tableData);  
+  
+  /*   else if (this.state.searchfunction == "MatriculationNumber") {
       axios.get(`http://localhost:8080/api/students/?matricnumber=${value}`)
         .then(response =>
-          this.setState({ tableData: response.data }))
+          this.setState({ tableData: {
+            dynamic: "y",
+            columns: '',
+            data:response.data
+          }}))
         .catch(error => console.log(error));
     }
     else if (this.state.searchfunction == "StudentName") {
       axios.get(`http://localhost:8080/api/students/?studentname=${value}`)
         .then(response =>
-          this.setState({ event: response.data }))
+          this.setState({ tableData: {
+            dynamic: "y",
+            columns: '',
+            data:response.data
+          }}))
         .catch(error => console.log(error));
-    } 
+    } */
+
     console.log("tableData:", this.state.tableData);
 
   };
@@ -67,7 +86,7 @@ export default class SearchFunction extends Component {
         allData.EventName = response.data
       ).catch(error => console.log(error));
 
-    axios.get(`http://localhost:8080/api/students/?matricnumber=''`)
+   /* axios.get(`http://localhost:8080/api/students/?matricnumber=''`)
       .then(response =>
         allData.MatriculationNumber = response.data
       ).catch(error => console.log(error));
@@ -77,7 +96,7 @@ export default class SearchFunction extends Component {
         allData.StudentName = response.data
       ).catch(error => console.log(error));
     this.setState({ allData: allData });
-    
+    */
   }
   
   handlePickData = (value) => {
@@ -105,6 +124,7 @@ export default class SearchFunction extends Component {
     setTimeout(() => {
       console.log("data:", this.state.data);
     }, 50)
+
   }
 
   componentDidMount() {
@@ -112,6 +132,7 @@ export default class SearchFunction extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <p>Select a search function</p>

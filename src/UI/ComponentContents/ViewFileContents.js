@@ -15,8 +15,11 @@ export default class ViewEvents extends Component {
     super(props);
     this.state = {
       Files: [],
-      EventTable: [],
-      event: [],
+      DynamicFile:{
+        dynamic:[],
+        columns:'',
+        data:[]
+      }
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -24,10 +27,14 @@ export default class ViewEvents extends Component {
   handleChange = value => {
     console.log(value);
 
-    axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
-      .then(response => {
-        
-        this.setState({ event: response.data });
+    axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
+      .then((response) => {
+        this.setState({ DynamicFile: {
+            dynamic: "y",
+            columns: response.data.keys(),
+            data: response.data
+        }
+        });
         console.log(response.data);
 
       })
@@ -37,11 +44,15 @@ export default class ViewEvents extends Component {
 
   componentDidMount() {
     axios.get('http://localhost:8080/api/uploadedfiles')
-      .then(response =>
-        this.setState({ Files: response.data })
+      .then(response =>{
+        this.setState({ Files: response.data });
+        console.log(response.data)
+      }
       )
       .catch(error => console.log(error));
   }
+
+  //building dynamic column
 
   render() {
 
@@ -64,7 +75,7 @@ export default class ViewEvents extends Component {
               })}
               </Select>
               <p>{}</p>
-              <DynamicTable data={this.state.event} />
+              <DynamicTable data={this.state.DynamicFile} />
               <p>{}</p>
               
             </Row>
