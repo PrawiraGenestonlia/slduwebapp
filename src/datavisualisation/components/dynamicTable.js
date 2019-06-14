@@ -72,15 +72,10 @@ export default class DynamicTable extends Component {
             this.setState({ shouldDynamic: nextProps.data.dynamic });
             this.setState({ columnsArr: nextProps.data.columns });
         }
+        setTimeout(() => { this.setState({ columns: columnsBuilder(this.state.columnsArr) }) }, 20);
     }
     componentWillMount() {
-        if ((this.state.shouldDynamic === "y" || this.state.shouldDynamic === "Y"))
-            this.setState({ columns: columnsBuilder(this.state.columnsArr) });
-        else
-            this.setState({ columns: staticColumns });
-    }
-    componentWillMount() {
-        if ((this.state.shouldDynamic === "y" || this.state.shouldDynamic === "Y"))
+        if ((this.state.shouldDynamic == "y" || this.state.shouldDynamic == "Y"))
             this.setState({ columns: columnsBuilder(this.state.columnsArr) });
         else
             this.setState({ columns: staticColumns });
@@ -88,7 +83,8 @@ export default class DynamicTable extends Component {
     render() {
         return (
             <div>
-                <Table  pagination={false} columns={this.state.columns} dataSource={this.state.data} />
+                <Table pagination={false} columns={this.state.columns} dataSource={this.state.data} />
+                {console.log("dynamic columns:", this.state.columns)}
             </div>
         )
     }
