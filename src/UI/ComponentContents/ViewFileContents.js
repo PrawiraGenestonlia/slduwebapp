@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Select } from 'antd';
+import { Select,Button } from 'antd';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import { Input, Layout, Row, Col } from 'antd';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
@@ -32,12 +32,11 @@ export default class ViewEvents extends Component {
         this.setState({
           DynamicFile: {
             dynamic: "y",
-            columns: Object.keys(response.data[0]),
-            data: response.data
+            columns: response.data.columns,
+            data: response.data.data
           }
         });
         console.log(response.data);
-
       })
       .catch(error => console.log(error));
     setTimeout(() => { console.log(this.state.DynamicFile) }, 100);
@@ -54,8 +53,6 @@ export default class ViewEvents extends Component {
       .catch(error => console.log(error));
   }
 
-  //building dynamic column
-
   render() {
 
     let SelectFile = this.state.Files.map(files =>
@@ -67,7 +64,7 @@ export default class ViewEvents extends Component {
         <Row>
           <p>Select File</p>
           <Select showSearch
-            style={{ width: 200 }}
+            style={{ width: 300 }}
             placeholder="Select a File"
             optionFilterProp="children"
             onChange={this.handleChange}>
@@ -76,6 +73,8 @@ export default class ViewEvents extends Component {
               )
             })}
           </Select>
+          <p>{}</p>
+          <Button>Sort Student Name</Button> <Button>Sort Matriculation Number</Button>
           <p>{}</p>
           <DynamicTable data={this.state.DynamicFile} />
           <p>{}</p>

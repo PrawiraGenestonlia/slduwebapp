@@ -67,7 +67,7 @@ export default class E7_EventTable extends Component {
       <div>
         {this.state.shouldShow ?
           <div>
-            <Table columns={columns} dataSource={this.state.data} />
+            <Table columns={columns} dataSource={this.state.data} pagination={false} />
           </div>
           : null}
       </div>
