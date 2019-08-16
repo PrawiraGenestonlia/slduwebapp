@@ -16,13 +16,16 @@ export default class P9_SkillSetRadarChart extends Component {
       data: this.props.data,
       shouldShow: this.props.shouldShow,
       colors: this.props.colors,
+      max: 10
     };
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
       this.setState({ data: nextProps.data });
+      this.setState({ max: this.state.data[0].max });
     }
   }
+
   render() {
     return (
       <div>
@@ -31,7 +34,7 @@ export default class P9_SkillSetRadarChart extends Component {
             <RadarChart cx={300} cy={250} outerRadius={150} width={600} height={600} data={this.state.data}>
               <PolarGrid />
               <PolarAngleAxis dataKey="skillset" />
-              <PolarRadiusAxis angle={30} domain={[0, this.state.data[0].max]} />
+              <PolarRadiusAxis angle={30} domain={[0, this.state.max]} />
               {/* <Radar name="ClassAverage" dataKey="ClassAverage" stroke={this.props.colors[2]} fill={this.props.colors[2]} fillOpacity={0.6} /> */}
               <Radar name="IndividualScore" dataKey="IndividualScore" stroke={this.props.colors[0]} fill={this.props.colors[0]} fillOpacity={0.6} />
               <Legend />
