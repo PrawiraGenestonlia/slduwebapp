@@ -16,6 +16,7 @@ export default class ViewEvents extends Component {
     super(props);
     this.state = {
       Files: [],
+      selected_files: '',
       DynamicFile: {
         dynamic: [],
         columns: '',
@@ -23,10 +24,12 @@ export default class ViewEvents extends Component {
       },
     };
     this.handleChange = this.handleChange.bind(this);
+    this.sortSN = this.sortSN.bind(this);
   }
 
   handleChange = value => {
     console.log(value);
+    this.setState({selected_files:value});
     axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
@@ -42,6 +45,39 @@ export default class ViewEvents extends Component {
     setTimeout(() => { console.log(this.state.DynamicFile) }, 100);
   }
 
+  sortSN = value => {
+    console.log(value);
+    axios.get(`http://localhost:8080/api/events/?eventname=${value}&sortstudentname=1`)
+      .then((response) => {
+        this.setState({
+          DynamicFile: {
+            dynamic: "y",
+            columns: response.data.columns,
+            data: response.data.data
+          }
+        });
+        console.log(response.data);
+      })
+      .catch(error => console.log(error));
+    setTimeout(() => { console.log(this.state.DynamicFile) }, 100);
+  }
+
+  sortMN = value => {
+    console.log(value);
+    axios.get(`http://localhost:8080/api/events/?eventname=${value}&sortmatricnumber=1`)
+      .then((response) => {
+        this.setState({
+          DynamicFile: {
+            dynamic: "y",
+            columns: response.data.columns,
+            data: response.data.data
+          }
+        });
+        console.log(response.data);
+      })
+      .catch(error => console.log(error));
+    setTimeout(() => { console.log(this.state.DynamicFile) }, 100);
+  }
 
   componentDidMount() {
     axios.get('http://localhost:8080/api/uploadedfiles')
@@ -74,7 +110,18 @@ export default class ViewEvents extends Component {
             })}
           </Select>
           <p>{}</p>
-          <Button>Sort Student Name</Button> <Button>Sort Matriculation Number</Button>
+          {
+            this.state.selected_files?
+            <>
+            <Button onClick={()=>{this.sortSN(this.state.selected_files)}}>Sort Student Name</Button> 
+            <Button onClick={()=>{this.sortMN(this.state.selected_files)}}>Sort Matriculation Number</Button>
+            </>
+            :
+            <>
+            <Button disabled onClick={()=>{this.sortSN(this.state.selected_files)}}>Sort Student Name</Button>
+            <Button disabled>Sort Matriculation Number</Button>
+            </>
+          } 
           <p>{}</p>
           <DynamicTable data={this.state.DynamicFile} />
           <p>{}</p>

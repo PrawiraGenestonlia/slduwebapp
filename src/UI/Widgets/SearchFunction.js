@@ -39,7 +39,8 @@ export default class SearchFunction extends Component {
     super(props);
     this.state = {
       refresh: false,
-      searchfunction: SearchType[0],
+      searchfunction: "",
+      AutoCompleteValue:'',
       allData: [],
       data: [],
       tableData:{
@@ -62,6 +63,7 @@ export default class SearchFunction extends Component {
   };
 
   handleSearchDataChange = value => {
+    //this.setState({AutoCompleteValue:value});
     if (this.state.searchfunction == "EventName") {
       axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
         .then((response) => {
@@ -170,29 +172,30 @@ export default class SearchFunction extends Component {
         </Select>
         <p>{}</p>
         <p>Search</p>
-        <Select
-          showSearch
-          placeholder="Select a target"
-          style={{ width: 300 }}
-          onChange={this.handleSearchDataChange} >
-          {this.state.data.map(data => (
-            <Option key={data}>{data}</Option>
-          ))}
-        </Select>
-        <p>{}</p>
-        <AutoComplete
-        className="certain-category-search"
-        dropdownClassName="certain-category-search-dropdown"
-        dropdownMatchSelectWidth={false}
-        dropdownStyle={{ width: 300 }}
-        size="large"
-        style={{ width: '100%' }}
-        dataSource={this.state.data}
-        placeholder="input here"
-        optionLabelProp="value"
-      >
-      <Input suffix={<Icon type="search" className="certain-category-icon" />} />
-      </AutoComplete>
+        {/* If/else case in jsx, if searchfunction has been selected, enable the search box */}
+        {
+          this.state.searchfunction?         
+          <AutoComplete
+          //value= {this.state.AutoCompleteValue}
+          style={{ width: 200 }}
+          dataSource={this.state.data}
+          placeholder="Key In Here"
+          filterOption={(inputValue, option) =>
+          option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+          onChange={this.handleSearchDataChange} 
+          /> :
+          <AutoComplete
+          // value= {this.state.AutoCompleteValue}
+          style={{ width: 200 }}
+          dataSource={this.state.data}
+          placeholder="Key In Here"
+          filterOption={(inputValue, option) =>
+          option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+          onChange={this.handleSearchDataChange} disabled={true}
+          />
+        }
         <p>{}</p>
         <DynamicTable data={this.state.tableData} />
         
@@ -205,3 +208,13 @@ export default class SearchFunction extends Component {
 //{this.state.tableData.length ? <DynamicTable data={this.state.tableData} /> : null}
 
 //Date selector: <MonthPicker onChange={onChange} placeholder="Select month" />
+/*    <Select
+          showSearch
+          placeholder="Select a target"
+          style={{ width: 300 }}
+          onChange={this.handleSearchDataChange} >
+          {this.state.data.map(data => (
+            <Option key={data}>{data}</Option>
+          ))}
+        </Select>
+*/
