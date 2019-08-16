@@ -9,10 +9,9 @@ export default class HomePage extends Component {
     return (
       <Layout>
         <PageHeader />
-
         <Layout>
           <Sidebar keys={['1']} />
-          <HomePageContent />
+          <HomePageContent style={{ width: '100%' }} />
         </Layout>
 
       </Layout>
