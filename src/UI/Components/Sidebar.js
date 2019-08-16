@@ -28,7 +28,7 @@ export default class Sidebar extends Component {
                 
             <Menu.Item key="1">
               <Icon type="user" />
-              <span>Home Page</span>
+              <span>Student Profile</span>
               <a href="/">Search</a>
             </Menu.Item>
             

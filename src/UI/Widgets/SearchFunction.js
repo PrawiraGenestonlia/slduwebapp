@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Select,AutoComplete,DatePicker } from 'antd';
+import { Select,AutoComplete,DatePicker, Icon, Input } from 'antd';
 import { throwStatement } from '@babel/types';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
@@ -12,8 +12,26 @@ const { Option } = Select;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 const SearchType = ['EventName', 'MatriculationNumber', 'StudentName', 'TimeStamp'];
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const {OptGroup} = AutoComplete;
 function onChange(date, dateString) {
   console.log(date, dateString);
+};
+
+//Render title
+function renderTitle(title) {
+  return (
+    <span>
+      {title}
+      <a
+        style={{ float: 'right' }}
+        href="https://www.google.com/search?q=antd"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        more
+      </a>
+    </span>
+  );
 }
 
 export default class SearchFunction extends Component {
@@ -31,10 +49,10 @@ export default class SearchFunction extends Component {
       }
     };
 
-    this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
+  this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
 
   };
-
+  
   handleSearchFunctionChange = value => {
     this.setState({
       searchfunction: value,
@@ -135,6 +153,7 @@ export default class SearchFunction extends Component {
     this.handleUpdateData();
   };
 
+
   render() {
     
     return (
@@ -160,6 +179,20 @@ export default class SearchFunction extends Component {
             <Option key={data}>{data}</Option>
           ))}
         </Select>
+        <p>{}</p>
+        <AutoComplete
+        className="certain-category-search"
+        dropdownClassName="certain-category-search-dropdown"
+        dropdownMatchSelectWidth={false}
+        dropdownStyle={{ width: 300 }}
+        size="large"
+        style={{ width: '100%' }}
+        dataSource={this.state.data}
+        placeholder="input here"
+        optionLabelProp="value"
+      >
+      <Input suffix={<Icon type="search" className="certain-category-icon" />} />
+      </AutoComplete>
         <p>{}</p>
         <DynamicTable data={this.state.tableData} />
         
