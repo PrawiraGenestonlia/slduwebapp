@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Divider, Select, Layout, AutoComplete, Descriptions } from 'antd';
+import { Layout, AutoComplete, Descriptions } from 'antd';
 import 'antd/dist/antd.css';
 import '../../index.css';
 import StudentProfileContent from '../ComponentContents/StudentProfileContent';

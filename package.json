@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "git-fast-sync": "git pull && git add . && git commit -am \"Fast Commit\" && git push origin master"
   },
   "eslintConfig": {
     "extends": "react-app"
