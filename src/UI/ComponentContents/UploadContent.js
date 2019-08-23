@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Layout, List} from 'antd';
+import React, { Component } from 'react';
+import { Layout, List } from 'antd';
 import 'antd/dist/antd.css';
 import '../../index.css';
 import UploadDuplicate from '../../UI/Widgets/UploadDuplicate';
@@ -12,21 +12,27 @@ const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#
 
 export default class UploadContent extends Component {
 
-    render(){
+    render() {
         return (
             <Layout>
-              <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,}}>
-              <p>Upload Event File</p>
-              <UploadDuplicate apiLink={'http://localhost:8080/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
-              <p>{}</p>
-              <p>Upload Masterlist</p>
-              <UploadDuplicate apiLink={'http://localhost:8080/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
-              </Content>
-              <ViewUploadedFiles />
+                <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, }}>
+                    <p>Upload Event File</p>
+                    <UploadDuplicate apiLink={'http://localhost:8080/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
+                    <p>{}</p>
+                    <p>Upload Student Master list</p>
+                    <UploadDuplicate apiLink={'http://localhost:8080/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
+                    <p>{}</p>
+                    <p>Upload Skillset Masterl ist</p>
+                    <UploadDuplicate apiLink={'upload master list api'} shouldShow={true} colors={DataVizColors} />
+                    <p>{}</p>
+                    <p>Upload Event List</p>
+                    <UploadDuplicate apiLink={'upload event list api'} shouldShow={true} colors={DataVizColors} />
+                </Content>
+                <ViewUploadedFiles />
             </Layout>
         );
     }
-}   
+}
 
 /* <
 
@@ -36,4 +42,4 @@ export default class UploadContent extends Component {
               dataSource={this.state.Files.map(data => ({title: data.Tables_in_mydb}))}
               renderItem={item => <List.Item>{item.title}</List.Item>}
               />
-*/  
+*/

@@ -9,6 +9,7 @@ import HomePage from './UI/Pages/HomePage';
 import SearchPage from './UI/Pages/SearchPage';
 import UploadFiles from './UI/Pages/UploadFiles';
 import ViewFiles from './UI/Pages/ViewFiles';
+import StudentProfileContent from './UI/ComponentContents/StudentProfileContent';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path='/Search' component={SearchPage} />
             <Route exact path='/UploadFiles' component={UploadFiles} />
             <Route exact path='/ViewFiles' component={ViewFiles} />
+            <Route exact path='/StudentProfile' component={StudentProfileContent} />
         </BrowserRouter>
     )
 };

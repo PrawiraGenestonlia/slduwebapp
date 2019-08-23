@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 25px;
+  font-size: 0.8em;
 }
 
 code {
@@ -19,3 +19,19 @@ code {
   font-size: 25px;
 }
 
+#StudentProfileTable {
+  border-collapse: collapse;
+  font-size: 0.8em
+}
+
+#StudentProfileTableTr {
+  font-size: 0.8em
+}
+
+#StudentProfileTableTh {
+  font-size: 0.8em
+}
+
+#StudentProfileTableTd {
+  font-size:0.8em
+}

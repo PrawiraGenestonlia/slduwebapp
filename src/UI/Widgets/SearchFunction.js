@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Select,AutoComplete,DatePicker, Icon, Input } from 'antd';
+import { Select, AutoComplete, DatePicker, Icon, Input } from 'antd';
 import { throwStatement } from '@babel/types';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
@@ -12,7 +12,7 @@ const { Option } = Select;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 const SearchType = ['EventName', 'MatriculationNumber', 'StudentName', 'TimeStamp'];
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
-const {OptGroup} = AutoComplete;
+const { OptGroup } = AutoComplete;
 function onChange(date, dateString) {
   console.log(date, dateString);
 };
@@ -40,20 +40,20 @@ export default class SearchFunction extends Component {
     this.state = {
       refresh: false,
       searchfunction: "",
-      AutoCompleteValue:'',
+      AutoCompleteValue: '',
       allData: [],
       data: [],
-      tableData:{
-        dynamic:[],
+      tableData: {
+        dynamic: [],
         columns: [],
-        data:[]
+        data: []
       }
     };
 
-  this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
+    this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
 
   };
-  
+
   handleSearchFunctionChange = value => {
     this.setState({
       searchfunction: value,
@@ -67,47 +67,55 @@ export default class SearchFunction extends Component {
     if (this.state.searchfunction == "EventName") {
       axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
         .then((response) => {
-          this.setState({ tableData : {
+          this.setState({
+            tableData: {
               dynamic: "y",
               columns: response.data.columns,
               data: response.data.data
-          }});
+            }
+          });
         })
         .catch(error => console.log(error));
 
-      setTimeout(() => {console.log(this.state.tableData)}, 100); //state is updated 
+      setTimeout(() => { console.log(this.state.tableData) }, 100); //state is updated 
     }
-  
-   else if (this.state.searchfunction == "MatriculationNumber") {
+
+    else if (this.state.searchfunction == "MatriculationNumber") {
       axios.get(`http://localhost:8080/api/students/?matricnumber=${value}`)
         .then(response =>
-          this.setState({ tableData: {
-            dynamic: "y",
-            columns: response.data.columns,
-            data:response.data.data
-          }}))
+          this.setState({
+            tableData: {
+              dynamic: "y",
+              columns: response.data.columns,
+              data: response.data.data
+            }
+          }))
         .catch(error => console.log(error));
     }
     else if (this.state.searchfunction == "StudentName") {
       axios.get(`http://localhost:8080/api/students/?studentname=${value}`)
         .then(response =>
-          this.setState({ tableData: {
-            dynamic: "y",
-            columns: response.data.columns,
-            data:response.data.data
-          }}))
+          this.setState({
+            tableData: {
+              dynamic: "y",
+              columns: response.data.columns,
+              data: response.data.data
+            }
+          }))
         .catch(error => console.log(error));
     }
-    
-    setTimeout(() => {console.log(this.state.tableData)}, 100); // state not update outside of loop
+
+    setTimeout(() => { console.log(this.state.tableData) }, 100); // state not update outside of loop
 
   };
 
   handleUpdateData = () => {
     let { allData } = this.state;
     axios.get(`http://localhost:8080/api/events`)
-      .then(response =>
+      .then(response => {
         allData.EventName = response.data
+      }
+
       ).catch(error => console.log(error));
 
     axios.get(`http://localhost:8080/api/students/?matricnumber`)
@@ -120,34 +128,37 @@ export default class SearchFunction extends Component {
         allData.StudentName = response.data.data
       ).catch(error => console.log(error));
     this.setState({ allData: allData });
-    
+
   }
-  
+
   handlePickData = (value) => {
     let { allData } = this.state;
     let selectedData = [];
-    switch (value) {
-      case "EventName":
-        for (let i = 0; i < allData.EventName.length; i++)
-          selectedData.push(allData.EventName[i].TABLE_NAME);
-        break;
-      case "MatriculationNumber":
-        for (let i = 0; i < allData.MatriculationNumber.length; i++)
-          selectedData.push(allData.MatriculationNumber[i].MATRICNUMBER); //change tablename to the correct value
-        break;
-      case "StudentName":
-        for (let i = 0; i < allData.StudentName.length; i++)
-          selectedData.push(allData.StudentName[i].STUDENTNAME); //change tablename to the correct value
-        break;
-      default:
-        break;
+    if (Object.keys(allData).length > 1) {
+      switch (value) {
+        case "EventName":
+          for (let i = 0; i < allData.EventName.length; i++)
+            selectedData.push(allData.EventName[i].TABLE_NAME);
+          break;
+        case "MatriculationNumber":
+          for (let i = 0; i < allData.MatriculationNumber.length; i++)
+            selectedData.push(allData.MatriculationNumber[i].MATRICNUMBER); //change tablename to the correct value
+          break;
+        case "StudentName":
+          for (let i = 0; i < allData.StudentName.length; i++)
+            selectedData.push(allData.StudentName[i].STUDENTNAME); //change tablename to the correct value
+          break;
+        default:
+          break;
+      }
+      if (!selectedData.length)
+        selectedData = [];
+      this.setState({ data: selectedData });
+      setTimeout(() => {
+        console.log("data:", this.state.data);
+      }, 50)
     }
-    if (!selectedData.length)
-      selectedData = [];
-    this.setState({ data: selectedData });
-    setTimeout(() => {
-      console.log("data:", this.state.data);
-    }, 50)
+
 
   }
 
@@ -157,7 +168,7 @@ export default class SearchFunction extends Component {
 
 
   render() {
-    
+
     return (
       <div>
         <p>Select a search function</p>
@@ -174,31 +185,34 @@ export default class SearchFunction extends Component {
         <p>Search</p>
         {/* If/else case in jsx, if searchfunction has been selected, enable the search box */}
         {
-          this.state.searchfunction?         
-          <AutoComplete
-          //value= {this.state.AutoCompleteValue}
-          style={{ width: 200 }}
-          dataSource={this.state.data}
-          placeholder="Key In Here"
-          filterOption={(inputValue, option) =>
-          option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-          }
-          onChange={this.handleSearchDataChange} 
-          /> :
-          <AutoComplete
-          // value= {this.state.AutoCompleteValue}
-          style={{ width: 200 }}
-          dataSource={this.state.data}
-          placeholder="Key In Here"
-          filterOption={(inputValue, option) =>
-          option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-          }
-          onChange={this.handleSearchDataChange} disabled={true}
-          />
+          this.state.data.length ?
+            <AutoComplete
+              //value= {this.state.AutoCompleteValue}
+              style={{ width: 200 }}
+              dataSource={this.state.data}
+              placeholder="Key In Here"
+              filterOption={(inputValue, option) =>
+                option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              }
+              onChange={this.handleSearchDataChange}
+            /> :
+            <AutoComplete
+              // value= {this.state.AutoCompleteValue}
+              style={{ width: 200 }}
+              dataSource={this.state.data}
+              placeholder="Key In Here"
+              filterOption={(inputValue, option) =>
+                option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              }
+              onChange={this.handleSearchDataChange} disabled={true}
+            />
         }
         <p>{}</p>
-        <DynamicTable data={this.state.tableData} />
-        
+        {
+          this.state.tableData.data.length ? <DynamicTable data={this.state.tableData} /> : <></>
+        }
+
+
       </div>
     );
   }
