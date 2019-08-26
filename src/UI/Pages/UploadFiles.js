@@ -10,7 +10,7 @@ export default class UploadFiles extends Component {
       <Layout>
         <PageHeader />
         <Layout>
-          <Sidebar keys={['4']} />
+          <Sidebar keys={['5']} />
           <UploadContent style={{ width: '100%' }} />
         </Layout>
 

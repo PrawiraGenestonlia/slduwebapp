@@ -10,6 +10,7 @@ import SearchPage from './UI/Pages/SearchPage';
 import UploadFiles from './UI/Pages/UploadFiles';
 import ViewFiles from './UI/Pages/ViewFiles';
 import StudentProfileContent from './UI/ComponentContents/StudentProfileContent';
+import ComparisonPage from './UI/Pages/ComparisonPage'
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
             <Route exact path='/UploadFiles' component={UploadFiles} />
             <Route exact path='/ViewFiles' component={ViewFiles} />
             <Route exact path='/StudentProfile' component={StudentProfileContent} />
+            <Route exact path='/Comparison' component={ComparisonPage} />
         </BrowserRouter>
     )
 };

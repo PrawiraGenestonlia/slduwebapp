@@ -10,7 +10,7 @@ export default class SearchPage extends Component {
       <Layout>
         <PageHeader />
         <Layout>
-          <Sidebar keys={['2']} />
+          <Sidebar keys={['3']} />
           <SearchContent style={{ width: '100%' }} />
         </Layout>
 

@@ -5,10 +5,6 @@ import 'antd/dist/antd.css';
 import '../../index.css';
 import P9_SkillSetRadarChart from '../../datavisualisation/components/P9_SkillSetRadarChart.js';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
-
-import 'antd/dist/antd.css';
-import '../../index.css';
-import P9_SkillSetRadarChart from '../../datavisualisation/components/P9_SkillSetRadarChart.js';
 import { P9_SkillSetRadarChart_Data } from '../../datavisualisation/sampleData';
 
 const { Content } = Layout;
@@ -57,7 +53,7 @@ export default class StudentProfileContent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // StudentProfileResponse: this.props.StudentProfileResponse
+            //StudentProfileResponse: this.props.StudentProfileResponse
             StudentProfileResponse: fakeData
         }
     }
@@ -77,58 +73,53 @@ export default class StudentProfileContent extends Component {
                 </Descriptions>
                 <Divider>Skillset Distribution</Divider>
                 <p>The data below represents the various skills which students have been exposed to through the events and projects participated.</p>
-
                 <p>{}</p>
-                <Divider orientation="left">Events Participated</Divider>
-
-                <p>{}</p>
-                <div style={{fontSize:'1em'}}>
-                The table displays the events that the students have participated.
-                
+                <div style={{ fontSize: '1em' }}>
+                    <P9_SkillSetRadarChart data={this.state.StudentProfileResponse.radarchartdata} shouldShow={true} colors={DataVizColors} />
+                    <p>{}</p>
+                    <Divider>Events Participated</Divider>
+                    The table displays the events that the students have participated.
+                    <p>{}</p>
                     {/* <DynamicTable data={this.state.StudentProfileResponse.studenteventlist} /> */}
-                    
                     <div>
-                    <table id="StudentProfileTable">
-                        <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column=><th id="StudentProfileTableTh">{column}</th>)}</tr>
-                        {this.state.StudentProfileResponse.studenteventlist.data.map((data)=>{ return(
-                            <tr id="StudentProfileTable">
-                                {this.state.StudentProfileResponse.studenteventlist.columns.map(column=><td id="StudentProfileTableTd">{data[column]}</td>)}
-                            </tr>
-                        )})}
-                    </table>
+                        <table id="StudentProfileTable" border="1" align="left">
+                            <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column => <th id="StudentProfileTableTh">{column}</th>)}</tr>
+                            {this.state.StudentProfileResponse.studenteventlist.data.map((data) => {
+                                return (
+                                    <tr id="StudentProfileTable">
+                                        {this.state.StudentProfileResponse.studenteventlist.columns.map(column => <td id="StudentProfileTableTd">{data[column]}</td>)}
+                                    </tr>
+                                )
+                            })}
+                        </table>
                     </div>
                 </div>
-
-
                 <p>{}</p>
-                <Divider orientation="left">Skillset</Divider>
-                <P9_SkillSetRadarChart data={this.state.StudentProfileResponse.radarchartdata} shouldShow={true} colors={DataVizColors} />
-
             </>
         )
     }
-}
-  render() {
-    return (
-      <>
 
-        SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING
-              <Divider>Student Skillset Overview</Divider>
-        <p>{}</p>
-        <Descriptions title="Student Profile">
-          <Descriptions.Item label="Student Name">Zhou Maomao</Descriptions.Item>
-          <Descriptions.Item label="Matriculation Number">1810000000</Descriptions.Item>
-        </Descriptions>
-        <Divider>Skillset Distribution</Divider>
-        <p>The data below represents the various skills which students have been exposed to through the events and projects participated.</p>
-        <P9_SkillSetRadarChart data={P9_SkillSetRadarChart_Data} shouldShow={true} colors={DataVizColors} />
-        <p>{}</p>
-        <Divider orientation="left">Events Participated</Divider>
+    //   render() {
+    //     return (
+    //       <>
 
-        <p>{}</p>
-        The table displays the events that the students have participated.
+    //         SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING
+    //               <Divider>Student Skillset Overview</Divider>
+    //         <p>{}</p>
+    //         <Descriptions title="Student Profile">
+    //           <Descriptions.Item label="Student Name">Zhou Maomao</Descriptions.Item>
+    //           <Descriptions.Item label="Matriculation Number">1810000000</Descriptions.Item>
+    //         </Descriptions>
+    //         <Divider>Skillset Distribution</Divider>
+    //         <p>The data below represents the various skills which students have been exposed to through the events and projects participated.</p>
+    //         <P9_SkillSetRadarChart data={P9_SkillSetRadarChart_Data} shouldShow={true} colors={DataVizColors} />
+    //         <p>{}</p>
+    //         <Divider orientation="left">Events Participated</Divider>
 
-            </>
-    )
-  }
+    //         <p>{}</p>
+    //         The table displays the events that the students have participated.
+
+    //             </>
+    //     )
+    //   }
 }

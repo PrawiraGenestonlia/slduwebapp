@@ -10,7 +10,7 @@ export default class ViewFiles extends Component {
       <Layout>
         <PageHeader />
         <Layout>
-          <Sidebar keys={['3']} />
+          <Sidebar keys={['4']} />
           <ViewContent style={{ width: '100%' }} />
         </Layout>
 

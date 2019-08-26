@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, AutoComplete, Descriptions } from 'antd';
+import { Button, Divider, Select, Layout, AutoComplete, Descriptions } from 'antd';
 import 'antd/dist/antd.css';
 import '../../index.css';
 import StudentProfileContent from '../ComponentContents/StudentProfileContent';
@@ -19,7 +19,7 @@ export default class HomePageContent extends Component {
       data: [],
       allData: [],
       searchfunction: "",
-      studentProfileResponse: true,
+      studentProfileResponse: false,
     }
   };
 
@@ -39,7 +39,7 @@ export default class HomePageContent extends Component {
 
   handleSearchDataChange = value => {
     if (this.state.searchfunction == "MatriculationNumber") {
-      axios.get(`http://localhost:8080/api/students/?matricnumber=${value}`)
+      axios.get(`http://localhost:8080/api/skillset?matricnumber=${value}`)
         .then(response =>
           this.setState({
             studentProfileResponse: response.data
@@ -141,7 +141,7 @@ export default class HomePageContent extends Component {
               <Option key={type}>{type}</Option>
             ))}
           </Select>
-          <br />
+          <p>{}</p>
           Search
             {"  "}
           {
@@ -169,11 +169,10 @@ export default class HomePageContent extends Component {
               />
           }
           <br />
-
+          <p>{}</p>
           {this.state.studentProfileResponse ?
             <>
-              <Button href="/StudentProfile" onClick={() => { window.print() }}>Printable Page</Button>
-              <a href="/StudentProfile" download>Printable</a>
+              <Button href="/StudentProfile" target="_blank">Printable Page</Button>
               <Divider>Print</Divider>
               <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
 

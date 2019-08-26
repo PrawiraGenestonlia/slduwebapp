@@ -22,11 +22,11 @@ export default class UploadContent extends Component {
                     <p>Upload Student Master list</p>
                     <UploadDuplicate apiLink={'http://localhost:8080/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
                     <p>{}</p>
-                    <p>Upload Skillset Masterl ist</p>
-                    <UploadDuplicate apiLink={'upload master list api'} shouldShow={true} colors={DataVizColors} />
+                    <p>Upload Skillset Master ist</p>
+                    <UploadDuplicate apiLink={'/api/uploadattribute2skillset'} shouldShow={true} colors={DataVizColors} />
                     <p>{}</p>
                     <p>Upload Event List</p>
-                    <UploadDuplicate apiLink={'upload event list api'} shouldShow={true} colors={DataVizColors} />
+                    <UploadDuplicate apiLink={'/api/uploadevent2attribute'} shouldShow={true} colors={DataVizColors} />
                 </Content>
                 <ViewUploadedFiles />
             </Layout>
