@@ -1,0 +1,144 @@
+{
+  "absent2events": [],
+  "absentevent1": {
+    "eventname": "EventA",
+    "numberofabsentees": 0,
+    "event1_absentees": []
+  },
+  "absentevent2": {
+    "eventname": "EventB",
+    "numberofabsentees": 31,
+    "event2_absentees": [
+      {
+        "studentname": "STUDENT310",
+        "matricnumber": "U1745690"
+      },
+      {
+        "studentname": "STUDENT311",
+        "matricnumber": "U1745691"
+      },
+      {
+        "studentname": "STUDENT312",
+        "matricnumber": "U1745692"
+      },
+      {
+        "studentname": "STUDENT313",
+        "matricnumber": "U1745693"
+      },
+      {
+        "studentname": "STUDENT314",
+        "matricnumber": "U1745694"
+      },
+      {
+        "studentname": "STUDENT315",
+        "matricnumber": "U1745695"
+      },
+      {
+        "studentname": "STUDENT316",
+        "matricnumber": "U1745696"
+      },
+      {
+        "studentname": "STUDENT317",
+        "matricnumber": "U1745697"
+      },
+      {
+        "studentname": "STUDENT318",
+        "matricnumber": "U1745698"
+      },
+      {
+        "studentname": "STUDENT319",
+        "matricnumber": "U1745699"
+      },
+      {
+        "studentname": "STUDENT320",
+        "matricnumber": "U1745700"
+      },
+      {
+        "studentname": "STUDENT321",
+        "matricnumber": "U1745701"
+      },
+      {
+        "studentname": "STUDENT322",
+        "matricnumber": "U1745702"
+      },
+      {
+        "studentname": "STUDENT323",
+        "matricnumber": "U1745703"
+      },
+      {
+        "studentname": "STUDENT324",
+        "matricnumber": "U1745704"
+      },
+      {
+        "studentname": "STUDENT325",
+        "matricnumber": "U1745705"
+      },
+      {
+        "studentname": "STUDENT326",
+        "matricnumber": "U1745706"
+      },
+      {
+        "studentname": "STUDENT327",
+        "matricnumber": "U1745707"
+      },
+      {
+        "studentname": "STUDENT328",
+        "matricnumber": "U1745708"
+      },
+      {
+        "studentname": "STUDENT329",
+        "matricnumber": "U1745709"
+      },
+      {
+        "studentname": "STUDENT330",
+        "matricnumber": "U1745710"
+      },
+      {
+        "studentname": "STUDENT331",
+        "matricnumber": "U1745711"
+      },
+      {
+        "studentname": "STUDENT332",
+        "matricnumber": "U1745712"
+      },
+      {
+        "studentname": "STUDENT333",
+        "matricnumber": "U1745713"
+      },
+      {
+        "studentname": "STUDENT334",
+        "matricnumber": "U1745714"
+      },
+      {
+        "studentname": "STUDENT335",
+        "matricnumber": "U1745715"
+      },
+      {
+        "studentname": "STUDENT336",
+        "matricnumber": "U1745716"
+      },
+      {
+        "studentname": "STUDENT337",
+        "matricnumber": "U1745717"
+      },
+      {
+        "studentname": "STUDENT338",
+        "matricnumber": "U1745718"
+      },
+      {
+        "studentname": "STUDENT339",
+        "matricnumber": "U1745719"
+      },
+      {
+        "studentname": "STUDENT340",
+        "matricnumber": "U1745720"
+      }
+    ]
+  },
+  "attendbothevents": {
+    "event1": "EventA",
+    "event2": "EventB",
+    "number": 0,
+    "attendboth": []
+  }
+}
