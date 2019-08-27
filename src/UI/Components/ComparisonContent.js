@@ -19,17 +19,18 @@ export default class ComparisonContent extends Component {
             DynamicFileOne: [],
             DynamicFileTwo: [],
             Absentees: [],
-            SelectedEvent:[]
+            SelectedEvent1: [],
+            SelectedEvent2: []
         };
     }
 
     Event1 = value => {
         console.log(value);
-        this.setState({ SelectedEvent: value });
+        this.setState({ SelectedEvent1: value });
         axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
             .then((response) => {
                 this.setState({
-                DynamicFileOne: response.data
+                    DynamicFileOne: response.data
                 });
                 console.log(response.data);
             })
@@ -39,19 +40,21 @@ export default class ComparisonContent extends Component {
 
     Event2 = value => {
         console.log(value);
-        this.setState({ selected_files: value });
+        this.setState({ SelectedEvent2: value });
         axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
             .then((response) => {
                 this.setState({
                     DynamicFileTwo: response.data
                 });
-                console.log(response.data);
+                console.log(this.state.DynamicFileTwo);
             })
             .catch(error => console.log(error));
         setTimeout(() => { console.log(this.state.DynamicFile) }, 100);
     }
 
     FindAbsentee = (event1, event2) => {
+        console.log(event1);
+        console.log(event2);
         axios.get("http://localhost:8080/api/compare_absentees2events")
             .then(response => {
                 this.setState({
@@ -104,7 +107,7 @@ export default class ComparisonContent extends Component {
                         })}
                     </Select>
                     <p>{}</p>
-                    <Button onClick={this.FindAbsentee.bind(this.state.DynamicFileOne, this.state.DynamicFileTwo)}>Submit</Button>
+                    <Button onClick={this.FindAbsentee.bind(this, this.state.SelectedEvent1, this.state.SelectedEvent2)}>Submit</Button>
 
                 </Content>
 
