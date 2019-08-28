@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Divider, Descriptions } from 'antd';
+import { Layout, Divider, Descriptions, Button, Icon } from 'antd';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import '../../index.css';
@@ -53,19 +53,37 @@ export default class StudentProfileContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showPrintButton: window.location.pathname == '/StudentProfile' ? true : false,
+      isPrinting: false,
       //StudentProfileResponse: this.props.StudentProfileResponse
       StudentProfileResponse: fakeData
     }
+  }
+  componentDidUpdate() {
+
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.StudentProfileResponse !== nextProps.StudentProfileResponse)
       this.setState({ StudentProfileResponse: nextProps.StudentProfileResponse })
   }
+  printingService = () => {
+    if (this.state.isPrinting) {
+      setTimeout(() => { window.print() }, 200);
+      this.setState({ isPrinting: false });
+    }
+  }
   render() {
     return (
       <>
-        SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING
-              <Divider>Student Skillset Overview</Divider>
+        {
+          this.state.showPrintButton ?
+            <Button type="primary" style={{ margin: '1%' }} onClick={() => { this.setState({ showPrintButton: false, isPrinting: true }) }}>
+              <Icon type="printer" />Click here to print
+            </Button> : null
+        }
+        {this.printingService()}
+        <center>SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING</center>
+        <Divider>Student Skillset Overview</Divider>
         <p>{}</p>
         <Descriptions title="Student Profile">
           <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
@@ -81,45 +99,21 @@ export default class StudentProfileContent extends Component {
           The table displays the events that the students have participated.
                     <p>{}</p>
           {/* <DynamicTable data={this.state.StudentProfileResponse.studenteventlist} /> */}
-          <div>
-            <table id="StudentProfileTable" border="1" align="left">
-              <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column => <th id="StudentProfileTableTh">{column}</th>)}</tr>
-              {this.state.StudentProfileResponse.studenteventlist.data.map((data) => {
-                return (
-                  <tr id="StudentProfileTable">
-                    {this.state.StudentProfileResponse.studenteventlist.columns.map(column => <td id="StudentProfileTableTd">{data[column]}</td>)}
-                  </tr>
-                )
-              })}
-            </table>
-          </div>
+
+          <table id="StudentProfileTable" border="1" align="left">
+            <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column => <th id="StudentProfileTableTh">{column}</th>)}</tr>
+            {this.state.StudentProfileResponse.studenteventlist.data.map((data) => {
+              return (
+                <tr id="StudentProfileTable">
+                  {this.state.StudentProfileResponse.studenteventlist.columns.map(column => <td id="StudentProfileTableTd">{data[column]}</td>)}
+                </tr>
+              )
+            })}
+          </table>
+
         </div>
         <p>{}</p>
       </>
     )
   }
-
-  //   render() {
-  //     return (
-  //       <>
-
-  //         SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING
-  //               <Divider>Student Skillset Overview</Divider>
-  //         <p>{}</p>
-  //         <Descriptions title="Student Profile">
-  //           <Descriptions.Item label="Student Name">Zhou Maomao</Descriptions.Item>
-  //           <Descriptions.Item label="Matriculation Number">1810000000</Descriptions.Item>
-  //         </Descriptions>
-  //         <Divider>Skillset Distribution</Divider>
-  //         <p>The data below represents the various skills which students have been exposed to through the events and projects participated.</p>
-  //         <P9_SkillSetRadarChart data={P9_SkillSetRadarChart_Data} shouldShow={true} colors={DataVizColors} />
-  //         <p>{}</p>
-  //         <Divider orientation="left">Events Participated</Divider>
-
-  //         <p>{}</p>
-  //         The table displays the events that the students have participated.
-
-  //             </>
-  //     )
-  //   }
 }

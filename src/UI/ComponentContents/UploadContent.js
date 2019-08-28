@@ -16,6 +16,9 @@ export default class UploadContent extends Component {
         return (
             <Layout>
                 <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, }}>
+                <div>
+                  
+                </div>
                     <p>Upload Event File</p>
                     <UploadDuplicate apiLink={'http://localhost:8080/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
                     <p>{}</p>

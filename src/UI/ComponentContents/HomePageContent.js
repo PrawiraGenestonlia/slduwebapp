@@ -172,10 +172,11 @@ export default class HomePageContent extends Component {
           <p>{}</p>
           {this.state.studentProfileResponse ?
             <>
-              <Button href="/StudentProfile" target="_blank">Printable Page</Button>
-              <Divider>Print</Divider>
-              <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
 
+              <Divider type="horizontal" />
+              <Button href="/StudentProfile" target="_blank">Click here for the printable Page</Button>
+              <Divider type="horizontal" />
+              <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
             </> : <></>
           }
         </Content>
