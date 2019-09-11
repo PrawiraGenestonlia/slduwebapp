@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import '../../index.css';
 import axios from 'axios';
 import { resolve } from 'url';
+import { thisExpression } from '@babel/types';
 
 
 const { Content } = Layout;
@@ -20,7 +21,10 @@ export default class ComparisonContent extends Component {
       DynamicFileTwo: [],
       Absentees: "",
       SelectedEvent1: [],
-      SelectedEvent2: []
+      SelectedEvent2: [],
+      selected_num: 0,
+      selected_event_to_be_compared: [],
+      selected_num_arr: []
     };
   }
 
@@ -64,6 +68,24 @@ export default class ComparisonContent extends Component {
       })
   }
 
+  handleNumOfEvents = (num) => {
+    console.log(num);
+    let temp_arr = [];
+    for (let i = 0; i < num; i++) {
+      temp_arr.push(i);
+    }
+    this.setState({ selected_num: num });
+    // this.setState({ selected_num_arr: temp_arr });
+    this.setState({
+      selected_num_arr: temp_arr
+    })
+    console.log(this.state.selected_num_arr);
+  }
+
+  handleSelectEvents = (event) => {
+    this.setState({ selected_event_to_be_compared: [...this.state.selected_event_to_be_compared, event] });
+  }
+
   componentDidMount() {
     axios.get("http://localhost:8080/api/events")
       .then(response => {
@@ -78,21 +100,53 @@ export default class ComparisonContent extends Component {
     let SelectFile = this.state.Events.map(files =>
       ({ label: files.TABLE_NAME, value: files.TABLE_NAME })
     );
+    let NumberOfEvents = [2, 3, 4, 5, 6, 7, 8, 9, 10];
     return (
       <Layout>
         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, }}>
           <p>Compare between 2 files</p>
+          <p>Numbe of Events: &nbsp;
+          <Select showSearch
+              style={{ width: 100 }}
+              placeholder="number"
+              optionFilterProp="children"
+              onChange={(e) => this.handleNumOfEvents(e)}>
+              {NumberOfEvents.map(opt => {
+                return (<Option value={opt} >{opt}</Option>
+                )
+              })}
+            </Select>
+          </p>
+          {
+            this.state.selected_num_arr.map((arr, index) => {
+              return <Select showSearch
+                // value={this.state.selected_event_to_be_compared(index)}
+                style={{ width: 300, marginTop: '5px' }}
+                placeholder="Select a File"
+                optionFilterProp="children"
+                onChange={this.handleSelectEvents}>
+                {SelectFile.map(opt => {
+                  return (<Option value={opt.value} disabled={this.state.selected_event_to_be_compared.includes(opt.value)} >{opt.label}</Option>
+                  )
+                })}
+              </Select>
+            })
+          }
+          <Divider type="horizontal" />
+          <h3>OLD</h3>
           <p>Select Event 1</p>
+
           <Select showSearch
             style={{ width: 300 }}
             placeholder="Select a File"
             optionFilterProp="children"
             onChange={this.Event1}>
             {SelectFile.map(opt => {
-              return (<Option value={opt.value} disabled={opt.value === this.state.SelectedEvent2 ? true : false}>{opt.label}</Option>
+              return (<Option value={opt.value} disabled={opt.value === this.state.SelectedEvent2 ? true : false} >{opt.label}</Option>
               )
             })}
           </Select>
+
           <p>{}</p>
           <p>Select Event 2</p>
 
@@ -106,6 +160,8 @@ export default class ComparisonContent extends Component {
               )
             })}
           </Select>
+
+
           <p>{}</p>
           <Button onClick={() => { this.FindAbsentee(this.state.SelectedEvent1, this.state.SelectedEvent2) }}>Submit</Button>
           {/*  */}

@@ -12,29 +12,30 @@ const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#
 
 export default class UploadContent extends Component {
 
-    render() {
-        return (
-            <Layout>
-                <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, }}>
-                <div>
-                  
-                </div>
-                    <p>Upload Event File</p>
-                    <UploadDuplicate apiLink={'http://localhost:8080/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
-                    <p>{}</p>
-                    <p>Upload Student Master list</p>
-                    <UploadDuplicate apiLink={'http://localhost:8080/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
-                    <p>{}</p>
-                    <p>Upload Skillset Master ist</p>
-                    <UploadDuplicate apiLink={'/api/uploadattribute2skillset'} shouldShow={true} colors={DataVizColors} />
-                    <p>{}</p>
-                    <p>Upload Event List</p>
-                    <UploadDuplicate apiLink={'/api/uploadevent2attribute'} shouldShow={true} colors={DataVizColors} />
-                </Content>
-                <ViewUploadedFiles />
-            </Layout>
-        );
-    }
+  render() {
+    return (
+      <Layout>
+        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, }}>
+
+          <div style={{ display: 'flex' }}>
+            <div >
+              <UploadDuplicate upload_text="Single Event File" apiLink={'http://localhost:8080/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
+            </div>
+            <div >
+              <UploadDuplicate upload_text="Student Master list" apiLink={'http://localhost:8080/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
+            </div>
+            <div>
+              <UploadDuplicate upload_text="Atrribute to Skillset" apiLink={'/api/uploadattribute2skillset'} shouldShow={true} colors={DataVizColors} />
+            </div>
+            <div>
+              <UploadDuplicate upload_text="Event to Attribute" apiLink={'/api/uploadevent2attribute'} shouldShow={true} colors={DataVizColors} />
+            </div>
+          </div>
+        </Content>
+        <ViewUploadedFiles />
+      </Layout>
+    );
+  }
 }
 
 /* <

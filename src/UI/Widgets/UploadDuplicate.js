@@ -18,7 +18,7 @@ var props = {
       Object.keys(data).map((key) => {
         return formData.append(key, data[key]);
       });
-      
+
     }
     formData.append(filename, file);
     // console.log('>> formData >> ', formData);
@@ -26,12 +26,12 @@ var props = {
     // You should have a server side REST API 
     axios.post(action,
       formData, {
-        withCredentials,
-        headers,
-        onUploadProgress: e => {
-          onProgress({ percent: (e.loaded / e.total) * 100 });
-        },
-      }
+      withCredentials,
+      headers,
+      onUploadProgress: e => {
+        onProgress({ percent: (e.loaded / e.total) * 100 });
+      },
+    }
     ).then(function (response) {
       onSuccess(response, file);
       message.success(`${response.data.file.originalname} file uploaded successfully.`);
@@ -52,6 +52,7 @@ export default class D4_Upload extends Component {
       shouldShow: this.props.shouldShow,
       colors: this.props.colors,
       apiLink: this.props.apiLink,
+      upload_text: this.props.upload_text || "Upload",
     };
   }
   componentWillMount() {
@@ -61,13 +62,13 @@ export default class D4_Upload extends Component {
     return (
       <div>
         {this.state.shouldShow ?
-          <div style={{ width: '25%' }}>
+          <div style={{ padding: '10px' }}>
             <Dragger {...props}>
               <p className="ant-upload-drag-icon">
                 <Icon type="inbox" />
               </p>
-              <p className="ant-upload-text">Click or drag file to this area to upload</p>
-              <p className="ant-upload-hint">Support for a single upload.</p>
+              <p className="ant-upload-text">{this.state.upload_text}</p>
+              <p className="ant-upload-hint">Click or drag file to this area to upload</p>
             </Dragger>
           </div>
           : null}

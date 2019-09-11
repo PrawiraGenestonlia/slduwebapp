@@ -41,11 +41,11 @@ const fakeData = {
     ]
   },
   radarchartdata: [
-    { skillset: 'Personal Development', IndividualScore: 120, max: 150 },
-    { skillset: 'Professional Development', IndividualScore: 98, max: 150 },
-    { skillset: 'Technical', IndividualScore: 86, max: 150 },
-    { skillset: 'Communication', IndividualScore: 99, max: 150 },
-    { skillset: 'Innovation', IndividualScore: 85, max: 150 },
+    { skillset: 'Personal Development', IndividualScore: 90, max: 100 },
+    { skillset: 'Professional Development', IndividualScore: 80, max: 100 },
+    { skillset: 'Technical', IndividualScore: 65, max: 100 },
+    { skillset: 'Communication', IndividualScore: 77, max: 100 },
+    { skillset: 'Innovation', IndividualScore: 85, max: 100 },
   ]
 }
 
