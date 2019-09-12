@@ -28,20 +28,20 @@ export default class P9_SkillSetRadarChart extends Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.shouldShow ?
-          <div>
-            <RadarChart cx={300} cy={250} outerRadius={150} width={600} height={600} data={this.state.data}>
+          <div style={{ height: '100%', width: '700px' }}>
+            <RadarChart cx={300} cy={250} outerRadius={150} width={700} height={420} data={this.state.data}>
               <PolarGrid />
               <PolarAngleAxis dataKey="skillset" />
-              <PolarRadiusAxis angle={30} domain={[0, this.state.max]} />
+              <PolarRadiusAxis angle={0} domain={[0, 100]} />
               {/* <Radar name="ClassAverage" dataKey="ClassAverage" stroke={this.props.colors[2]} fill={this.props.colors[2]} fillOpacity={0.6} /> */}
               <Radar name="IndividualScore" dataKey="IndividualScore" stroke={this.props.colors[0]} fill={this.props.colors[0]} fillOpacity={0.6} />
-              <Legend />
+              {/* <Legend /> */}
             </RadarChart>
           </div>
           : null}
-      </div>
+      </>
     )
   }
 }
