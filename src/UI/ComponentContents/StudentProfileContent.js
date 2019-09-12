@@ -6,7 +6,7 @@ import '../../index.css';
 import P9_SkillSetRadarChart from '../../datavisualisation/components/P9_SkillSetRadarChart.js';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
 import { P9_SkillSetRadarChart_Data } from '../../datavisualisation/sampleData';
-import Logo from '../../UI/Images/Ntu-Logo.png';
+import Logo from '../../UI/Images/Logo.png';
 
 const { Content } = Layout;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
@@ -79,15 +79,20 @@ export default class StudentProfileContent extends Component {
                 {
                     this.state.showPrintButton ?
                         <Button type="primary" style={{ margin: '1%' }} onClick={() => { this.setState({ showPrintButton: false, isPrinting: true }) }}>
-                            <Icon type="printer" />Click here to print
+                            <Icon align="right" type="printer" />Click here to print
             </Button> : null
                 }
+                <img style={{ maxWidth: '300px' }} src={Logo} align="left"></img>
                 {this.printingService()}
-                <center>SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING</center>
-                <Divider>Student Skillset Overview</Divider>
-                <p>{}</p>
-                <Descriptions title="Student Profile">
+                <>
+                    {/* Break between header and paragraph */}
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                </>
+                <Descriptions align="left" title="SKILLSET DEVELOPMENT OVERVIEW">
                     <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
+                    <br></br>
                     <Descriptions.Item label="Matriculation Number">{this.state.StudentProfileResponse.matricnumber}</Descriptions.Item>
                 </Descriptions>
                 <Divider>Skillset Distribution</Divider>

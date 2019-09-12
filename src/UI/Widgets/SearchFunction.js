@@ -10,7 +10,7 @@ import responsiveObserve from 'antd/lib/_util/responsiveObserve';
 
 const { Option } = Select;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
-const SearchType = ['EventName', 'MatriculationNumber', 'StudentName', 'TimeStamp'];
+const SearchType = ['EventName', 'MatriculationNumber', 'StudentName'];
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const { OptGroup } = AutoComplete;
 function onChange(date, dateString) {
