@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Select, AutoComplete, DatePicker, Icon, Input } from 'antd';
+import { Select, AutoComplete, DatePicker, Divider, Input } from 'antd';
 import { throwStatement } from '@babel/types';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
@@ -47,12 +47,21 @@ export default class SearchFunction extends Component {
         dynamic: [],
         columns: [],
         data: []
-      }
+      },
+      filename: [],
     };
 
     this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
 
   };
+
+  handleSearchFilename = () => {
+    axios.get('http://localhost:8080/api/uploadedfiles')
+      .then((response) => {
+        this.setState({ data: response.data.data });
+        console.log(response);
+      })
+  }
 
   handleSearchFunctionChange = value => {
     this.setState({
@@ -212,7 +221,17 @@ export default class SearchFunction extends Component {
           this.state.tableData.data.length ? <DynamicTable data={this.state.tableData} /> : <></>
         }
 
-
+        <Divider> Dynamic search fucntion</Divider>
+        <p>Select Type of File</p>
+        <Select
+          showSearch
+          placeholder="Select Type of File"
+          style={{ width: 300 }}
+          onChange={this.handleSearchFunctionChange}>
+          {SearchType.map(type => (
+            <Option key={type}>{type}</Option>
+          ))}
+        </Select>
       </div>
     );
   }
