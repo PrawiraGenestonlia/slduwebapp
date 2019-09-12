@@ -6,6 +6,7 @@ import '../../index.css';
 import P9_SkillSetRadarChart from '../../datavisualisation/components/P9_SkillSetRadarChart.js';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
 import { P9_SkillSetRadarChart_Data } from '../../datavisualisation/sampleData';
+import Logo from '../../UI/Images/Ntu-Logo.png';
 
 const { Content } = Layout;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
@@ -64,6 +65,7 @@ export default class StudentProfileContent extends Component {
     render() {
         return (
             <>
+                <img src={Logo}></img>
                 SCHOOL OF ELECTRICAL AND ELECTRONIC ENGINEERING
               <Divider>Student Skillset Overview</Divider>
                 <p>{}</p>
