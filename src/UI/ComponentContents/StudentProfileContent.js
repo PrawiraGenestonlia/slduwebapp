@@ -76,6 +76,7 @@ export default class StudentProfileContent extends Component {
     render() {
         return (
             <>
+            <div class="page">
                 {
                     this.state.showPrintButton ?
                         <Button type="primary" style={{ margin: '1%' }} onClick={() => { this.setState({ showPrintButton: false, isPrinting: true }) }}>
@@ -89,8 +90,9 @@ export default class StudentProfileContent extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
+                    <br></br>
                 </>
-                <Descriptions align="left" title="SKILLSET DEVELOPMENT OVERVIEW">
+                <Descriptions title="SKILLSET DEVELOPMENT OVERVIEW">
                     <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
                     <Descriptions.Item>{}</Descriptions.Item>
                     <Descriptions.Item label="Matriculation Number">{this.state.StudentProfileResponse.matricnumber}</Descriptions.Item>
@@ -102,7 +104,8 @@ export default class StudentProfileContent extends Component {
                 <div style={{ fontSize: '1em' }}>
                     <P9_SkillSetRadarChart data={this.state.StudentProfileResponse.radarchartdata} shouldShow={true} colors={DataVizColors} />
                     <p>{}</p>
-                    <Divider>Events Participated</Divider>
+                    <header><b>Events Participated</b></header>
+                    <Divider />
                     The table displays the events that the students have participated.
                     <p>{}</p>
                     {/* <DynamicTable data={this.state.StudentProfileResponse.studenteventlist} /> */}
@@ -120,7 +123,9 @@ export default class StudentProfileContent extends Component {
 
                 </div>
                 <p>{}</p>
+            </div>
             </>
+            
         )
     }
 }
