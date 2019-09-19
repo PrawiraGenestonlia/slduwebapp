@@ -84,7 +84,7 @@ export default class StudentProfileContent extends Component {
                                 <Icon align="right" type="printer" />Click here to print
                             </Button> : null
                     }
-                    <img style={{ maxWidth: '300px' }} src={Logo} align="left"></img>
+                    <img style={{ maxWidth: '400px' }} src={Logo} align="left"></img>
                     {this.printingService()}
                     <>
                         {/* Break between header and paragraph */}
@@ -92,25 +92,25 @@ export default class StudentProfileContent extends Component {
                         <br></br>
                         <br></br>
                         <br></br>
+                        <br></br>
                     </>
+                    <p>{}</p>
                     <Descriptions title="SKILLSET DEVELOPMENT OVERVIEW">
                         <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
                         <Descriptions.Item>{}</Descriptions.Item>
                         <Descriptions.Item label="Matriculation Number">{this.state.StudentProfileResponse.matricnumber}</Descriptions.Item>
                     </Descriptions>
                     <header><b>Skillset Distribution</b></header>
-                    <Divider stye={{ border: '3em' }} />
+                    <line />
                     <p>The data below shows the skills distribution based on your participation in workshops and events.</p>
-                    <p>{}</p>
                     <div style={{ fontSize: '1em' }}>
                         <P9_SkillSetRadarChart data={this.state.StudentProfileResponse.radarchartdata} shouldShow={true} colors={DataVizColors} />
                         <p>{}</p>
                         <header><b>Events Participated</b></header>
-                        <Divider />
+                        <line />
                         The table displays the events that you have participated.
                     <p>{}</p>
                         {/* <DynamicTable data={this.state.StudentProfileResponse.studenteventlist} /> */}
-
                         <table id="StudentProfileTable" border="1" align="left">
                             <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column => <th id="StudentProfileTableTh">{column}</th>)}</tr>
                             {this.state.StudentProfileResponse.studenteventlist.data.map((data) => {

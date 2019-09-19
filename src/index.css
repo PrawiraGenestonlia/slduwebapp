@@ -21,23 +21,24 @@ code {
 
 #StudentProfileTable {
   border-collapse: collapse;
-  font-size: 1em;
+  font-size: 0.9em;
   width: 100%;
 
 }
 
 #StudentProfileTableTr {
-  font-size: 1em;
+  font-size: 0.9em;
   text-align: center;
 }
 
 #StudentProfileTableTh {
-  font-size: 1em;
+  font-size: 0.9em;
   text-align:center;
 }
 
 #StudentProfileTableTd {
-  font-size:1em;
+  font-size: 0.9em; 
+  /* 16px ==> 12pt */
   text-align:center;
 }
 
@@ -48,5 +49,11 @@ code {
   font: 13pt Georgia, "Times New Roman", Times, serif;
 }
 
-
-
+line {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
