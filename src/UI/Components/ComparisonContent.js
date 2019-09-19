@@ -27,6 +27,7 @@ export default class ComparisonContent extends Component {
       selected_num_arr: [],
       compared_results_common_participants: {},
       compared_results_common_absentees: {},
+      isCommonPart: 1
     };
   }
 
@@ -96,6 +97,7 @@ export default class ComparisonContent extends Component {
   }
 
   handleCompareCommonParticipants = (events_arr) => {
+    this.setState({ isCommonPart: 1 });
     axios.post("http://localhost:8080/api/commonparticipants", { Events: events_arr })
       .then(response => {
         console.log(response.data);
@@ -106,6 +108,7 @@ export default class ComparisonContent extends Component {
   }
 
   handleCompareCommonAbsentees = (events_arr) => {
+    this.setState({ isCommonPart: 0 });
     axios.post("http://localhost:8080/api/commonabsentees", { Events: events_arr })
       .then(response => {
         console.log(response.data);
@@ -187,10 +190,10 @@ export default class ComparisonContent extends Component {
 
           <div>
             {
-              Object.keys(this.state.compared_results_common_participants).length ?
+              Object.keys(this.state.compared_results_common_participants).length && this.state.isCommonPart ?
                 <>
                   <Divider type='horizontal' />
-                  <p>Common Participants</p>
+                  <p>Participated in the above events</p>
                   <table id="StudentProfileTable" border="1" align="left">
                     <tr id="StudentProfileTableTr">
                       <th>STUDENT NAME</th>
@@ -213,10 +216,10 @@ export default class ComparisonContent extends Component {
 
           <div>
             {
-              Object.keys(this.state.compared_results_common_absentees).length ?
+              Object.keys(this.state.compared_results_common_absentees).length && !this.state.isCommonPart ?
                 <>
                   <Divider type='horizontal' />
-                  <p>Common Absentees</p>
+                  <p>Absent from the above events</p>
                   <table id="StudentProfileTable" border="1" align="left">
                     <tr id="StudentProfileTableTr">
                       <th>STUDENT NAME</th>
