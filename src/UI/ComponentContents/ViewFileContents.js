@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Select,Button } from 'antd';
+import { Select, Button } from 'antd';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import { Input, Layout, Row, Col } from 'antd';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
@@ -29,8 +29,8 @@ export default class ViewEvents extends Component {
 
   handleChange = value => {
     console.log(value);
-    this.setState({selected_files:value});
-    axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
+    this.setState({ selected_files: value });
+    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
           DynamicFile: {
@@ -47,7 +47,7 @@ export default class ViewEvents extends Component {
 
   sortSN = value => {
     console.log(value);
-    axios.get(`http://localhost:8080/api/events/?eventname=${value}&sortstudentname=1`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}&sortstudentname=1`)
       .then((response) => {
         this.setState({
           DynamicFile: {
@@ -64,7 +64,7 @@ export default class ViewEvents extends Component {
 
   sortMN = value => {
     console.log(value);
-    axios.get(`http://localhost:8080/api/events/?eventname=${value}&sortmatricnumber=1`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}&sortmatricnumber=1`)
       .then((response) => {
         this.setState({
           DynamicFile: {
@@ -80,7 +80,7 @@ export default class ViewEvents extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/api/uploadedfiles')
+    axios.get('https://server.thexdream.net/slduAPI/api/uploadedfiles')
       .then(response => {
         this.setState({ Files: response.data });
         console.log(response.data)
@@ -111,17 +111,17 @@ export default class ViewEvents extends Component {
           </Select>
           <p>{}</p>
           {
-            this.state.selected_files?
-            <>
-            <Button onClick={()=>{this.sortSN(this.state.selected_files)}}>Sort Student Name</Button> 
-            <Button onClick={()=>{this.sortMN(this.state.selected_files)}}>Sort Matriculation Number</Button>
-            </>
-            :
-            <>
-            <Button disabled onClick={()=>{this.sortSN(this.state.selected_files)}}>Sort Student Name</Button>
-            <Button disabled>Sort Matriculation Number</Button>
-            </>
-          } 
+            this.state.selected_files ?
+              <>
+                <Button onClick={() => { this.sortSN(this.state.selected_files) }}>Sort Student Name</Button>
+                <Button onClick={() => { this.sortMN(this.state.selected_files) }}>Sort Matriculation Number</Button>
+              </>
+              :
+              <>
+                <Button disabled onClick={() => { this.sortSN(this.state.selected_files) }}>Sort Student Name</Button>
+                <Button disabled>Sort Matriculation Number</Button>
+              </>
+          }
           <p>{}</p>
           <DynamicTable data={this.state.DynamicFile} />
           <p>{}</p>

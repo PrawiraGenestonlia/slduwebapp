@@ -56,7 +56,7 @@ export default class SearchFunction extends Component {
   };
 
   handleSearchFilename = () => {
-    axios.get('http://localhost:8080/api/uploadedfiles')
+    axios.get('https://server.thexdream.net/slduAPI/api/uploadedfiles')
       .then((response) => {
         this.setState({ data: response.data.data });
         console.log(response);
@@ -74,7 +74,7 @@ export default class SearchFunction extends Component {
   handleSearchDataChange = value => {
     //this.setState({AutoCompleteValue:value});
     if (this.state.searchfunction == "EventName") {
-      axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
+      axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}`)
         .then((response) => {
           this.setState({
             tableData: {
@@ -90,7 +90,7 @@ export default class SearchFunction extends Component {
     }
 
     else if (this.state.searchfunction == "MatriculationNumber") {
-      axios.get(`http://localhost:8080/api/students/?matricnumber=${value}`)
+      axios.get(`https://server.thexdream.net/slduAPI/api/students/?matricnumber=${value}`)
         .then(response =>
           this.setState({
             tableData: {
@@ -102,7 +102,7 @@ export default class SearchFunction extends Component {
         .catch(error => console.log(error));
     }
     else if (this.state.searchfunction == "StudentName") {
-      axios.get(`http://localhost:8080/api/students/?studentname=${value}`)
+      axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname=${value}`)
         .then(response =>
           this.setState({
             tableData: {
@@ -120,19 +120,19 @@ export default class SearchFunction extends Component {
 
   handleUpdateData = () => {
     let { allData } = this.state;
-    axios.get(`http://localhost:8080/api/events`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/events`)
       .then(response => {
         allData.EventName = response.data
       }
 
       ).catch(error => console.log(error));
 
-    axios.get(`http://localhost:8080/api/students/?matricnumber`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/students/?matricnumber`)
       .then(response =>
         allData.MatriculationNumber = response.data.data
       ).catch(error => console.log(error));
 
-    axios.get(`http://localhost:8080/api/students/?studentname`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname`)
       .then(response =>
         allData.StudentName = response.data.data
       ).catch(error => console.log(error));

@@ -9,7 +9,7 @@ import SearchFunction from '../Widgets/SearchFunction';
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 const Option = Select.Option;
 
-const Search = Input.Search; 
+const Search = Input.Search;
 
 export default class SearchFileContents extends Component {
   constructor(props) {
@@ -22,28 +22,28 @@ export default class SearchFileContents extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  Search = value =>{
+  Search = value => {
     console.log(value);
-    axios.get(`http://localhost:8080/api/students/?matricnumber=${value}`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/students/?matricnumber=${value}`)
       .then(response =>
-        this.setState({event: response.data}))
+        this.setState({ event: response.data }))
       .catch(error => console.log(error));
   }
 
-  SearchName = value =>{
+  SearchName = value => {
     console.log(value);
-    axios.get(`http://localhost:8080/api/students/?studentname=${value}`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname=${value}`)
       .then(response =>
-        this.setState({event: response.data}))
+        this.setState({ event: response.data }))
       .catch(error => console.log(error));
   }
 
   handleChange = value => {
     console.log(value);
 
-    axios.get(`http://localhost:8080/api/events/?eventname=${value}`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}`)
       .then(response => {
-        
+
         this.setState({ event: response.data });
         console.log(response.data);
 
@@ -53,7 +53,7 @@ export default class SearchFileContents extends Component {
 
 
   componentDidMount() {
-    /*axios.get('http://localhost:8080/api/events')
+    /*axios.get('https://server.thexdream.net/slduAPI/api/events')
       .then(response =>
         this.setState({ Events: response.data })
       )
@@ -70,7 +70,7 @@ export default class SearchFileContents extends Component {
 
       <div className="viewevents">
         <div ClassName="container">
-          <p>{}</p>         
+          <p>{}</p>
           <SearchFunction />
         </div>
       </div>

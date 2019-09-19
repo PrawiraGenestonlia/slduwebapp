@@ -19,16 +19,16 @@ export default class UploadContent extends Component {
 
           <div style={{ display: 'flex' }}>
             <div >
-              <UploadDuplicate upload_text="Single Event File" apiLink={'http://localhost:8080/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
+              <UploadDuplicate upload_text="Single Event File" apiLink={'https://server.thexdream.net/slduAPI/api/uploadeventfile'} shouldShow={true} colors={DataVizColors} />
             </div>
             <div >
-              <UploadDuplicate upload_text="Student Master list" apiLink={'http://localhost:8080/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
+              <UploadDuplicate upload_text="Student Master list" apiLink={'https://server.thexdream.net/slduAPI/api/uploadstudentmasterlist'} shouldShow={true} colors={DataVizColors} />
             </div>
             <div>
-              <UploadDuplicate upload_text="Atrribute to Skillset" apiLink={'/api/uploadattribute2skillset'} shouldShow={true} colors={DataVizColors} />
+              <UploadDuplicate upload_text="Atrribute to Skillset" apiLink={'https://server.thexdream.net/slduAPI/api/uploadattribute2skillset'} shouldShow={true} colors={DataVizColors} />
             </div>
             <div>
-              <UploadDuplicate upload_text="Event to Attribute" apiLink={'/api/uploadevent2attribute'} shouldShow={true} colors={DataVizColors} />
+              <UploadDuplicate upload_text="Event to Attribute" apiLink={'https://server.thexdream.net/slduAPI/api/uploadevent2attribute'} shouldShow={true} colors={DataVizColors} />
             </div>
           </div>
         </Content>

@@ -25,7 +25,7 @@ export default class ViewUploadedFiles extends Component {
   };
 
   componentWillMount() {
-    axios.get(`http://localhost:8080/api/uploadedfiles`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles`)
       .then(response => {
         this.setState({ Files: response.data });
         console.log("files", this.state.Files);
@@ -38,7 +38,7 @@ export default class ViewUploadedFiles extends Component {
 
     console.log(index);
 
-    axios.put(`http://localhost:8080/api/droptables/?tablename=${item}`)
+    axios.put(`https://server.thexdream.net/slduAPI/api/droptables/?tablename=${item}`)
       .then(response => {
         axios.get(` /api/uploadedfiles`)
           .then(response => console.log(response))
@@ -75,7 +75,7 @@ export default class ViewUploadedFiles extends Component {
 
   update = (value) => {
 
-    axios.get(`http://localhost:8080/api/uploadedfiles`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles`)
       .then(response =>
         //network server error
         this.setState({ Files: response.data })
@@ -87,7 +87,7 @@ export default class ViewUploadedFiles extends Component {
 
   ViewFile = (item, index) => {
 
-    axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${item}`)
+    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles/?filename=${item}`)
       .then(response => {
         this.setState({
           tableData: {
