@@ -144,22 +144,24 @@ export default class ComparisonContent extends Component {
               })}
             </Select>
           </p>
-          {
-            this.state.selected_num_arr.map((arr, index) => {
-              return <Select showSearch
-                // value={this.state.selected_event_to_be_compared(index)}
-                style={{ width: 300, marginTop: '5px' }}
-                placeholder="Select a File"
-                optionFilterProp="children"
-                value={this.state.selected_event_to_be_compared[index]}
-                onChange={e => this.handleSelectEvents(e, index)}>
-                {SelectFile.map(opt => {
-                  return (<Option value={opt.value} disabled={this.state.selected_event_to_be_compared.includes(opt.value)} >{opt.label}</Option>
-                  )
-                })}
-              </Select>
-            })
-          }
+          <div>
+            {
+              this.state.selected_num_arr.map((arr, index) => {
+                return <Select showSearch
+                  // value={this.state.selected_event_to_be_compared(index)}
+                  style={{ width: 300, marginTop: '5px' }}
+                  placeholder="Select a File"
+                  optionFilterProp="children"
+                  value={this.state.selected_event_to_be_compared[index]}
+                  onChange={e => this.handleSelectEvents(e, index)}>
+                  {SelectFile.map(opt => {
+                    return (<Option value={opt.value} disabled={this.state.selected_event_to_be_compared.includes(opt.value)} >{opt.label}</Option>
+                    )
+                  })}
+                </Select>
+              })
+            }
+          </div>
           <div style={{ marginTop: '5px', display: 'flex' }}>
             <div>
               {
