@@ -24,7 +24,9 @@ export default class ComparisonContent extends Component {
       SelectedEvent2: [],
       selected_num: 0,
       selected_event_to_be_compared: [],
-      selected_num_arr: []
+      selected_num_arr: [],
+      compared_results_common_participants: {},
+      compared_results_common_absentees: {},
     };
   }
 
@@ -82,8 +84,31 @@ export default class ComparisonContent extends Component {
     console.log(this.state.selected_num_arr);
   }
 
-  handleSelectEvents = (event) => {
-    this.setState({ selected_event_to_be_compared: [...this.state.selected_event_to_be_compared, event] });
+  handleSelectEvents = (event, index) => {
+    let curr_selected = this.state.selected_event_to_be_compared;
+    curr_selected[index] = event;
+    // console.log(event, index);
+    this.setState({ selected_event_to_be_compared: [...curr_selected] });
+  }
+
+  handleCompareCommonParticipants = (events_arr) => {
+    axios.post("http://localhost:8080/api/commonparticipants", { Events: events_arr })
+      .then(response => {
+        console.log(response.data);
+        if (response.status === 200)
+          this.setState({ compared_results_common_participants: { ...response.data } });
+      })
+      .catch(error => console.log(error));
+  }
+
+  handleCompareCommonAbsentees = (events_arr) => {
+    axios.post("http://localhost:8080/api/commonabsentees", { Events: events_arr })
+      .then(response => {
+        console.log(response.data);
+        if (response.status === 200)
+          this.setState({ compared_results_common_absentees: { ...response.data } });
+      })
+      .catch(error => console.log(error));
   }
 
   componentDidMount() {
@@ -100,12 +125,14 @@ export default class ComparisonContent extends Component {
     let SelectFile = this.state.Events.map(files =>
       ({ label: files.TABLE_NAME, value: files.TABLE_NAME })
     );
-    let NumberOfEvents = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let NumberOfEvents = [];
+    this.state.Events && this.state.Events.forEach((v, i) => { NumberOfEvents.push(i + 1) });
+
     return (
       <Layout>
         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, }}>
-          <p>Compare between 2 files</p>
-          <p>Numbe of Events: &nbsp;
+          <p>Compare between events</p>
+          <p>Number of Events: &nbsp;
           <Select showSearch
               style={{ width: 100 }}
               placeholder="number"
@@ -124,7 +151,8 @@ export default class ComparisonContent extends Component {
                 style={{ width: 300, marginTop: '5px' }}
                 placeholder="Select a File"
                 optionFilterProp="children"
-                onChange={this.handleSelectEvents}>
+                value={this.state.selected_event_to_be_compared[index]}
+                onChange={e => this.handleSelectEvents(e, index)}>
                 {SelectFile.map(opt => {
                   return (<Option value={opt.value} disabled={this.state.selected_event_to_be_compared.includes(opt.value)} >{opt.label}</Option>
                   )
@@ -132,6 +160,80 @@ export default class ComparisonContent extends Component {
               </Select>
             })
           }
+          <div style={{ marginTop: '5px', display: 'flex' }}>
+            <div>
+              {
+                this.state.selected_event_to_be_compared.length > 1 ?
+                  <Button onClick={() => { this.handleCompareCommonParticipants(this.state.selected_event_to_be_compared) }}>Compare Common Participants</Button>
+                  :
+                  <Button disabled onClick={() => { this.handleCompareCommonParticipants(this.state.selected_event_to_be_compared) }}>Compare Common Participants</Button>
+              }
+            </div>
+            <div style={{ marginLeft: '5px' }}>
+              {
+                this.state.selected_event_to_be_compared.length > 1 ?
+                  <Button onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
+                  :
+                  <Button disabled onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
+              }
+            </div>
+          </div>
+
+          <div>
+            {
+              Object.keys(this.state.compared_results_common_participants).length ?
+                <>
+                  <Divider type='horizontal' />
+                  <p>Common Participants</p>
+                  <table id="StudentProfileTable" border="1" align="left">
+                    <tr id="StudentProfileTableTr">
+                      <th>STUDENT NAME</th>
+                      <th>MATRIC NO</th>
+                    </tr>
+                    {this.state.compared_results_common_participants.commonparticipants.map((data) => {
+                      return (
+                        <tr id="StudentProfileTable">
+                          <td>{data.STUDENTNAME}</td>
+                          <td>{data.MATRICNUMBER}</td>
+                        </tr>
+                      )
+                    })}
+                  </table>
+                </>
+                :
+                <></>
+            }
+          </div>
+
+          <div>
+            {
+              Object.keys(this.state.compared_results_common_absentees).length ?
+                <>
+                  <Divider type='horizontal' />
+                  <p>Common Absentees</p>
+                  <table id="StudentProfileTable" border="1" align="left">
+                    <tr id="StudentProfileTableTr">
+                      <th>STUDENT NAME</th>
+                      <th>MATRIC NO</th>
+                    </tr>
+                    {this.state.compared_results_common_absentees.common_absentees.map((data) => {
+                      return (
+                        <tr id="StudentProfileTable">
+                          <td>{data.STUDENTNAME}</td>
+                          <td>{data.MATRICNUMBER}</td>
+                        </tr>
+                      )
+                    })}
+                  </table>
+                </>
+                :
+                <></>
+            }
+          </div>
+
+
+
+          {/* 
           <Divider type="horizontal" />
           <h3>OLD</h3>
           <p>Select Event 1</p>
@@ -164,7 +266,7 @@ export default class ComparisonContent extends Component {
 
           <p>{}</p>
           <Button onClick={() => { this.FindAbsentee(this.state.SelectedEvent1, this.state.SelectedEvent2) }}>Submit</Button>
-          {/*  */}
+
           <div>
             {
               this.state.Absentees.absent2events ?
@@ -240,7 +342,7 @@ export default class ComparisonContent extends Component {
                   {this.state.Absentees.attendbothevents.attendboth.map(data => <ol>{data}</ol>)}
                 </> : null
             }
-          </div>
+          </div> */}
 
         </Content>
 
