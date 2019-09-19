@@ -64,6 +64,7 @@ export default class SearchFunction extends Component {
   }
 
   handleSearchFunctionChange = value => {
+    //
     this.setState({
       searchfunction: value,
     });
