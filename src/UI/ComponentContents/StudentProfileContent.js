@@ -25,8 +25,8 @@ const fakeData = {
             { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO", "SKILLSET": "INNOVATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
             { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO", "SKILLSET": "COMMUNICATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
             { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO", "SKILLSET": "COMMUNICATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
-            { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO","SKILLSET": "COMMUNICATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
-            { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO","SKILLSET": "COMMUNICATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
+            { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO", "SKILLSET": "COMMUNICATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
+            { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT82", "MATRICNUMBER": "U1512372C", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO", "SKILLSET": "COMMUNICATION", "EVENTPOSITION": "Vice President Branding and Marketing", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
 
             { "TIMESTAMP": "00/00/00  0:00:00", "FULLNAME": "STUDENT83", "MATRICNUMBER": "U1512373D", "NTUEMAILADDRESS": "", "EVENTNAME": "EEE TOP 2017 ENITIO", "SKILLETSET": "TECHNICAL", "EVENTPOSITION": "Vice President Technical", "EVENTSTARTDATE": "2017-08-08", "EVENTENDDATE": "2017-08-12" },
             {
@@ -77,12 +77,12 @@ export default class StudentProfileContent extends Component {
     render() {
         return (
             <>
-                <div class="page">
+                <div id="StudentProfilePage">
                     {
                         this.state.showPrintButton ?
                             <Button type="primary" style={{ margin: '1%' }} onClick={() => { this.setState({ showPrintButton: false, isPrinting: true }) }}>
                                 <Icon align="right" type="printer" />Click here to print
-            </Button> : null
+                            </Button> : null
                     }
                     <img style={{ maxWidth: '300px' }} src={Logo} align="left"></img>
                     {this.printingService()}
@@ -100,14 +100,14 @@ export default class StudentProfileContent extends Component {
                     </Descriptions>
                     <header><b>Skillset Distribution</b></header>
                     <Divider stye={{ border: '3em' }} />
-                    <p>The data below represents the various skills which students have been exposed to through the events and projects participated.</p>
+                    <p>The data below shows the skills distribution based on your participation in workshops and events.</p>
                     <p>{}</p>
                     <div style={{ fontSize: '1em' }}>
                         <P9_SkillSetRadarChart data={this.state.StudentProfileResponse.radarchartdata} shouldShow={true} colors={DataVizColors} />
                         <p>{}</p>
                         <header><b>Events Participated</b></header>
                         <Divider />
-                        The table displays the events that the students have participated.
+                        The table displays the events that you have participated.
                     <p>{}</p>
                         {/* <DynamicTable data={this.state.StudentProfileResponse.studenteventlist} /> */}
 
