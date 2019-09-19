@@ -81,6 +81,10 @@ export default class ComparisonContent extends Component {
     this.setState({
       selected_num_arr: temp_arr
     })
+    let emptyArr = [];
+    this.setState({
+      selected_event_to_be_compared: [...emptyArr]
+    })
     console.log(this.state.selected_num_arr);
   }
 
@@ -144,12 +148,12 @@ export default class ComparisonContent extends Component {
               })}
             </Select>
           </p>
-          <div>
+          <div style={{ marginTop: '5px', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
             {
               this.state.selected_num_arr.map((arr, index) => {
                 return <Select showSearch
                   // value={this.state.selected_event_to_be_compared(index)}
-                  style={{ width: 300, marginTop: '5px' }}
+                  style={{ width: 250, margin: '5px' }}
                   placeholder="Select a File"
                   optionFilterProp="children"
                   value={this.state.selected_event_to_be_compared[index]}
@@ -166,17 +170,17 @@ export default class ComparisonContent extends Component {
             <div>
               {
                 this.state.selected_event_to_be_compared.length > 1 ?
-                  <Button onClick={() => { this.handleCompareCommonParticipants(this.state.selected_event_to_be_compared) }}>Compare Common Participants</Button>
+                  <Button type="primary" onClick={() => { this.handleCompareCommonParticipants(this.state.selected_event_to_be_compared) }}>Compare Common Participants</Button>
                   :
-                  <Button disabled onClick={() => { this.handleCompareCommonParticipants(this.state.selected_event_to_be_compared) }}>Compare Common Participants</Button>
+                  <Button type="primary" disabled onClick={() => { this.handleCompareCommonParticipants(this.state.selected_event_to_be_compared) }}>Compare Common Participants</Button>
               }
             </div>
             <div style={{ marginLeft: '5px' }}>
               {
                 this.state.selected_event_to_be_compared.length > 1 ?
-                  <Button onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
+                  <Button type="primary" onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
                   :
-                  <Button disabled onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
+                  <Button type="primary" disabled onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
               }
             </div>
           </div>
