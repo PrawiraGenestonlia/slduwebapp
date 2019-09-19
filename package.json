@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "permission": "sudo chown -R $USER:www-data slduwebapp/build &&  sudo chmod 755 -R slduwebapp/build/",
+    "permission": "sudo chown -R $USER:www-data build &&  sudo chmod 755 -R build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "git-fast-sync": "git pull && git add . && git commit -am \"Fast Commit\" && git push origin master"
