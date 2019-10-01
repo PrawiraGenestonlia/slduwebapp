@@ -15,11 +15,13 @@ export default class StudentPage extends Component {
   }
   componentWillMount() {
     axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${this.state.studentMatricNo}`)
-      .then(response =>
+      .then(response => {
+        console.log(response.data);
         this.setState({
           studentProfileResponse: { ...response.data }
-        }
-        ))
+        });
+      }
+      )
       .catch(error => console.log(error));
   }
   componentDidUpdate() {
@@ -34,8 +36,8 @@ export default class StudentPage extends Component {
   render() {
     return (
       <>
-        <span>{this.state.studentMatricNo}</span>
-        <span>{JSON.stringify(this.state.StudentProfileResponse)}</span>
+        {/* <span>{this.state.studentMatricNo}</span>
+        <span>{JSON.stringify(this.state.StudentProfileResponse)}</span> */}
         {
           Object.keys(this.state.StudentProfileResponse).length ?
             <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
