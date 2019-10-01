@@ -11,20 +11,22 @@ import UploadFiles from './UI/Pages/UploadFiles';
 import ViewFiles from './UI/Pages/ViewFiles';
 import StudentProfileContent from './UI/ComponentContents/StudentProfileContent';
 import ComparisonPage from './UI/Pages/ComparisonPage'
+import StudentPage from './UI/ComponentContents/StudentPage';
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Route exact path='/' component={HomePage} />
-            <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
-            <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
-            <Route exact path='/Search' component={SearchPage} />
-            <Route exact path='/UploadFiles' component={UploadFiles} />
-            <Route exact path='/ViewFiles' component={ViewFiles} />
-            <Route exact path='/StudentProfile' component={StudentProfileContent} />
-            <Route exact path='/Comparison' component={ComparisonPage} />
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Route exact path='/' component={HomePage} />
+      <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
+      <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
+      <Route exact path='/Search' component={SearchPage} />
+      <Route exact path='/UploadFiles' component={UploadFiles} />
+      <Route exact path='/ViewFiles' component={ViewFiles} />
+      <Route exact path='/StudentProfile' component={StudentProfileContent} />
+      <Route exact path='/Comparison' component={ComparisonPage} />
+      <Route exact path='/student/:matricnumber' component={StudentPage} />
+    </BrowserRouter>
+  )
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
