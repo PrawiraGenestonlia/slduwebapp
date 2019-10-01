@@ -1,32 +1,46 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import StudentProfileContent from '../ComponentContents/StudentProfileContent';
 
-export default class StudentProfileContent extends Component {
+
+export default class StudentPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showPrintButton: true,
       isPrinting: false,
       studentMatricNo: this.props.match.params.matricnumber,
-      StudentProfileResponse: this.props.StudentProfileResponse
+      StudentProfileResponse: {},
     }
+  }
+  componentWillMount() {
+    axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${this.state.studentMatricNo}`)
+      .then(response =>
+        this.setState({
+          studentProfileResponse: { ...response.data }
+        }
+        ))
+      .catch(error => console.log(error));
   }
   componentDidUpdate() {
-
-  }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.StudentProfileResponse !== nextProps.StudentProfileResponse)
-      this.setState({ StudentProfileResponse: nextProps.StudentProfileResponse })
-  }
-  printingService = () => {
-    if (this.state.isPrinting) {
-      setTimeout(() => { window.print() }, 200);
-      this.setState({ isPrinting: false });
-    }
+    axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${this.state.studentMatricNo}`)
+      .then(response =>
+        this.setState({
+          studentProfileResponse: { ...response.data }
+        }
+        ))
+      .catch(error => console.log(error));
   }
   render() {
     return (
       <>
-        <div><h1>{this.state.studentMatricNo}</h1></div>
+        <span>{this.state.studentMatricNo}</span>
+        <span>{JSON.stringify(this.state.StudentProfileResponse)}</span>
+        {
+          Object.keys(this.state.StudentProfileResponse).length ?
+            <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
+            : null
+        }
       </>
 
     )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button, Icon } from 'antd';
+import Student from '../../UI/Student';
 
 const pagination = { position: 'none' };
 
@@ -49,7 +50,7 @@ function columnsBuilder(columnsArr) {
       title: columnsArr[i],
       dataIndex: columnsArr[i],
       key: columnsArr[i],
-      render: text => <font>{text}</font>,
+      render: text => columnsArr[i] == 'MATRICNUMBER' ? <Student matricnumber={text} /> : <font>{text}</font>,
       width: `${80 / columnsArr.length}%`,
     })
   }

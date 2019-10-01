@@ -12,7 +12,7 @@ export default class StudentProfileContent extends Component {
     const url = `/student/${this.props.matricnumber}`;
     return (
       <>
-        <Link to={url}>
+        <Link to={url} target="_blank">
           <span>{this.props.matricnumber}</span>
         </Link>
       </>
