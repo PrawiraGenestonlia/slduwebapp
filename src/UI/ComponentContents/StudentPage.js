@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import StudentProfileContent from '../ComponentContents/StudentProfileContent';
 
-
+//TODO: allows student name input - wira
 export default class StudentPage extends Component {
   constructor(props) {
     super(props);
