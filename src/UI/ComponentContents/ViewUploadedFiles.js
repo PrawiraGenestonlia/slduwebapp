@@ -14,6 +14,7 @@ export default class ViewUploadedFiles extends Component {
       Files: [],
       Delete: [],
       FileContent: [],
+      selected_file: "",
       tableData: {
         dynamic: [],
         columns: [],
@@ -89,6 +90,7 @@ export default class ViewUploadedFiles extends Component {
 
     axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles/?filename=${item}`)
       .then(response => {
+        this.setState({ selected_file: item });
         this.setState({
           tableData: {
             dynamic: "y",
@@ -129,7 +131,7 @@ export default class ViewUploadedFiles extends Component {
   };
 
   render() {
-
+    let modalTitle = `${this.state.selected_file} (${this.state.tableData.data.length} rows)`;
     return (
       <Layout>
 
@@ -149,7 +151,7 @@ export default class ViewUploadedFiles extends Component {
         />
 
         <Modal
-          title="View File Content"
+          title={modalTitle}
           visible={this.state.visible}
           onOk={this.handleFileContent}
           onCancel={this.handleCancel}
