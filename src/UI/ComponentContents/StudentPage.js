@@ -25,24 +25,22 @@ export default class StudentPage extends Component {
       .catch(error => console.log(error));
   }
   componentDidUpdate() {
-    axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${this.state.studentMatricNo}`)
-      .then(response =>
-        this.setState({
-          studentProfileResponse: { ...response.data }
-        }
-        ))
-      .catch(error => console.log(error));
+    if (Object.keys(this.state.StudentProfileResponse).length !== 4) {
+      // axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${this.state.studentMatricNo}`)
+      //   .then(response =>
+      //     this.setState({
+      //       studentProfileResponse: { ...response.data }
+      //     }
+      //     ))
+      //   .catch(error => console.log(error));
+    }
+
   }
   render() {
     return (
       <>
-        {/* <span>{this.state.studentMatricNo}</span>
-        <span>{JSON.stringify(this.state.StudentProfileResponse)}</span> */}
-        {
-          Object.keys(this.state.StudentProfileResponse).length ?
-            <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
-            : null
-        }
+        {this.state.studentProfileResponse ?
+          <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} /> : null}
       </>
 
     )
