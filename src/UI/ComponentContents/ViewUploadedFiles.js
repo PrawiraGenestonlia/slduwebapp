@@ -3,6 +3,7 @@ import axios from 'axios';
 import { List, Button, Modal, Layout, Icon } from 'antd';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
+import { thisTypeAnnotation } from '@babel/types';
 
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 const { confirm } = Modal;
@@ -72,8 +73,16 @@ export default class ViewUploadedFiles extends Component {
     });
   };
 
-  //Update files in database
+  // componentDidUpdate() {
+  //   this.update();
+  // }
+  componentDidMount() {
+    setInterval(() => {
+      this.update();
+    }, 100);
+  }
 
+  //Update files in database
   update = (value) => {
 
     axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles`)

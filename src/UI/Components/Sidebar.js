@@ -26,11 +26,11 @@ export default class Sidebar extends Component {
           style={{ height: '100%', borderRight: 0 }}
         >
 
-          <Menu.Item key="1">
+          {/* <Menu.Item key="1">
             <Icon type="user" />
             <span>Student Profile</span>
             <a href="/">Search</a>
-          </Menu.Item>
+          </Menu.Item> */}
 
           <Menu.Item key="2">
             <Icon type="interaction" />

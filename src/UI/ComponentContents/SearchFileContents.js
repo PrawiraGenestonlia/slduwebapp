@@ -70,7 +70,6 @@ export default class SearchFileContents extends Component {
 
       <div className="viewevents">
         <div ClassName="container">
-          <p>{}</p>
           <SearchFunction />
         </div>
       </div>

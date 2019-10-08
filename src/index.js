@@ -16,7 +16,7 @@ import StudentPage from './UI/ComponentContents/StudentPage';
 function App() {
   return (
     <BrowserRouter>
-      <Route exact path='/' component={HomePage} />
+      <Route exact path='/' component={SearchPage} />
       <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
       <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
       <Route exact path='/Search' component={SearchPage} />
