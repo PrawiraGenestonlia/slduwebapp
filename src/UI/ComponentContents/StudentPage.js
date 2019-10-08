@@ -40,7 +40,9 @@ export default class StudentPage extends Component {
     return (
       <>
         {this.state.studentProfileResponse ?
-          <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} /> : null}
+          <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
+          :
+          <div>The student does not exist</div>}
       </>
 
     )

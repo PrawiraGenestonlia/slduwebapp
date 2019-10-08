@@ -5,6 +5,7 @@ import '../../index.css';
 import axios from 'axios';
 import { resolve } from 'url';
 import { thisExpression } from '@babel/types';
+import Student from '../Student';
 
 
 const { Content } = Layout;
@@ -128,7 +129,7 @@ export default class ComparisonContent extends Component {
   }
 
   render() {
-
+    console.log(this.state.selected_event_to_be_compared);
     let SelectFile = this.state.Events.map(files =>
       ({ label: files.TABLE_NAME, value: files.TABLE_NAME })
     );
@@ -203,7 +204,7 @@ export default class ComparisonContent extends Component {
                       return (
                         <tr id="StudentProfileTable">
                           <td>{data.STUDENTNAME}</td>
-                          <td>{data.MATRICNUMBER}</td>
+                          <td><Student matricnumber={data.MATRICNUMBER} /></td>
                         </tr>
                       )
                     })}
@@ -229,7 +230,7 @@ export default class ComparisonContent extends Component {
                       return (
                         <tr id="StudentProfileTable">
                           <td>{data.STUDENTNAME}</td>
-                          <td>{data.MATRICNUMBER}</td>
+                          <td><Student matricnumber={data.MATRICNUMBER} /></td>
                         </tr>
                       )
                     })}
