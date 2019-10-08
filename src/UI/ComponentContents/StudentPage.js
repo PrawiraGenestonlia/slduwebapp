@@ -25,15 +25,6 @@ export default class StudentPage extends Component {
       .catch(error => console.log(error));
   }
   componentDidUpdate() {
-    if (Object.keys(this.state.StudentProfileResponse).length !== 4) {
-      // axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${this.state.studentMatricNo}`)
-      //   .then(response =>
-      //     this.setState({
-      //       studentProfileResponse: { ...response.data }
-      //     }
-      //     ))
-      //   .catch(error => console.log(error));
-    }
 
   }
   render() {
@@ -42,7 +33,7 @@ export default class StudentPage extends Component {
         {this.state.studentProfileResponse ?
           <StudentProfileContent StudentProfileResponse={this.state.studentProfileResponse} />
           :
-          <div>The student does not exist</div>}
+          <div>The student with matric number {this.state.studentMatricNo} does not exist</div>}
       </>
 
     )
