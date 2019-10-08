@@ -112,7 +112,7 @@ export default class StudentProfileContent extends Component {
                     <p>{}</p>
             {/* <DynamicTable data={this.state.StudentProfileResponse.studenteventlist} /> */}
             <table id="StudentProfileTable" border="1" align="left">
-              <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column => <th id="StudentProfileTableTh">{column}</th>)}</tr>
+              <tr id="StudentProfileTableTr">{this.state.StudentProfileResponse.studenteventlist.columns.map(column => column === "listofeventparticipated" ? <th id="StudentProfileTableTh">Events</th> : <th id="StudentProfileTableTh">{column}</th>)}</tr>
               {this.state.StudentProfileResponse.studenteventlist.data.map((data) => {
                 return (
                   <tr id="StudentProfileTable">
