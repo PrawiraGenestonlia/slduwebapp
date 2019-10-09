@@ -17,7 +17,7 @@ const { OptGroup } = AutoComplete;
 function onChange(date, dateString) {
   console.log(date, dateString);
 };
-
+const emptyObj = {};
 //Render title
 function renderTitle(title) {
   return (
@@ -51,6 +51,8 @@ export default class SearchFunction extends Component {
         data: []
       },
       filename: [],
+      current_response: '',
+      last_current_response: '',
     };
 
     this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
@@ -84,7 +86,7 @@ export default class SearchFunction extends Component {
     switch (current_searchfunction) {
       case "EventName":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/event?eventname=${value}`)
-          .then(response => current_response = response).catch(error => console.log(error));
+          .then(response => this.setState({ current_response: response })).catch(error => console.log(error));
         break;
       case "MatriculationNumber":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/matricnumber?matricnumber=${value}`)
@@ -108,25 +110,41 @@ export default class SearchFunction extends Component {
         break;
       case "EventPosition":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/eventposition?eventposition=${value}`)
-          .then(response => { current_response = response }).catch(error => console.log(error));
+          .then(response => this.setState({ current_response: { ...response } })).catch(error => console.log(error));
         break;
       default:
         break;
     }
+    // this.checkCurrentResponse();
     setTimeout(() => {
+      this.setState({
+        tableData: {
+          dynamic: "y",
+          columns: [...this.state.current_response.data.columns],
+          data: [...this.state.current_response.data.data]
+        }
+      });
       this.setState({ isLoading: false });
-      if (current_response) {
-        this.setState({
-          tableData: {
-            dynamic: "y",
-            columns: [...current_response.data.columns],
-            data: [...current_response.data.data]
-          }
-        });
-      }
-      console.log(this.state.tableData);
     }, 1000);
   };
+
+
+
+  checkCurrentResponse = () => {
+    if (this.state.current_response == this.state.last_current_response) {
+      setTimeout(() => this.checkCurrentResponse(), 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+      this.setState({ last_current_response: { ...this.state.current_response } });
+      this.setState({
+        tableData: {
+          dynamic: "y",
+          columns: [...this.state.current_response.data.columns],
+          data: [...this.state.current_response.data.data]
+        }
+      });
+      this.setState({ isLoading: false });
+    }
+  }
 
   handleUpdateData = () => {
     let { allData } = this.state;
