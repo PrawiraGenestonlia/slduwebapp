@@ -81,69 +81,49 @@ export default class SearchFunction extends Component {
   handleSearchDataChange = value => {
     this.setState({ isLoading: true });
     let current_searchfunction = this.state.searchfunction;
-    let current_searchvalue = value;
-    let current_response = null;
     switch (current_searchfunction) {
       case "EventName":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/event?eventname=${value}`)
-          .then(response => this.setState({ current_response: response })).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "MatriculationNumber":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/matricnumber?matricnumber=${value}`)
-          .then(response => current_response = response).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "StudentName":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/studentname?studentname=${value}`)
-          .then(response => current_response = response).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "NTUEmailAddress":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/ntuemailaddress?ntuemailaddress=${value}`)
-          .then(response => current_response = response).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "EventEndYear":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/eventendyear?eventendyear=${value}`)
-          .then(response => current_response = response).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "EventStartYear":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/eventstartyear?eventstartyear=${value}`)
-          .then(response => current_response = response).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "EventPosition":
         axios.get(`https://server.thexdream.net/slduAPI/api/search/eventposition?eventposition=${value}`)
-          .then(response => this.setState({ current_response: { ...response } })).catch(error => console.log(error));
+          .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       default:
         break;
     }
-    // this.checkCurrentResponse();
-    setTimeout(() => {
-      this.setState({
-        tableData: {
-          dynamic: "y",
-          columns: [...this.state.current_response.data.columns],
-          data: [...this.state.current_response.data.data]
-        }
-      });
-      this.setState({ isLoading: false });
-    }, 1000);
   };
 
-
-
-  checkCurrentResponse = () => {
-    if (this.state.current_response == this.state.last_current_response) {
-      setTimeout(() => this.checkCurrentResponse(), 100); /* this checks the flag every 100 milliseconds*/
-    } else {
-      this.setState({ last_current_response: { ...this.state.current_response } });
-      this.setState({
-        tableData: {
-          dynamic: "y",
-          columns: [...this.state.current_response.data.columns],
-          data: [...this.state.current_response.data.data]
-        }
-      });
-      this.setState({ isLoading: false });
-    }
+  updateTableData = (response) => {
+    this.setState({ isLoading: false });
+    this.setState({
+      tableData: {
+        dynamic: "y",
+        columns: [...response.data.columns],
+        data: [...response.data.data]
+      }
+    })
   }
 
   handleUpdateData = () => {
