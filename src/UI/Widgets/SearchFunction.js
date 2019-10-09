@@ -115,13 +115,15 @@ export default class SearchFunction extends Component {
     }
     setTimeout(() => {
       this.setState({ isLoading: false });
-      this.setState({
-        tableData: {
-          dynamic: "y",
-          columns: [...current_response.data.columns],
-          data: [...current_response.data.data]
-        }
-      });
+      if (current_response) {
+        this.setState({
+          tableData: {
+            dynamic: "y",
+            columns: [...current_response.data.columns],
+            data: [...current_response.data.data]
+          }
+        });
+      }
       console.log(this.state.tableData);
     }, 1000);
   };
