@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Select, AutoComplete, DatePicker, Divider, Input } from 'antd';
+import { Select, AutoComplete, DatePicker, Divider, Input, Spin, Icon } from 'antd';
 import { throwStatement } from '@babel/types';
 import E7_EventTable from '../../datavisualisation/components/E7_EventTable';
 import DynamicTable from '../../datavisualisation/components/dynamicTable';
@@ -9,8 +9,9 @@ import responsiveObserve from 'antd/lib/_util/responsiveObserve';
 /*This is a search function whereby users can select how they want to search. For example, student name/matric number.*/
 
 const { Option } = Select;
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
-const SearchType = ['EventName', 'MatriculationNumber', 'StudentName'];
+const SearchType = ['EventName', 'MatriculationNumber', 'StudentName', 'NTUEmailAddress', 'EventEndYear', 'EventStartYear', 'EventPosition'];
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const { OptGroup } = AutoComplete;
 function onChange(date, dateString) {
@@ -43,6 +44,7 @@ export default class SearchFunction extends Component {
       AutoCompleteValue: '',
       allData: [],
       data: [],
+      isLoading: false,
       tableData: {
         dynamic: [],
         columns: [],
@@ -69,101 +71,128 @@ export default class SearchFunction extends Component {
       searchfunction: value,
     });
     this.handleUpdateData();
+    console.log(this.state.allData);
     this.handlePickData(value);
   };
 
+  //TODO: USE THIS ONE
   handleSearchDataChange = value => {
-    //this.setState({AutoCompleteValue:value});
-    if (this.state.searchfunction == "EventName") {
-      axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}`)
-        .then((response) => {
-          this.setState({
-            tableData: {
-              dynamic: "y",
-              columns: response.data.columns,
-              data: response.data.data
-            }
-          });
-        })
-        .catch(error => console.log(error));
-
-      setTimeout(() => { console.log(this.state.tableData) }, 100); //state is updated 
+    this.setState({ isLoading: true });
+    let current_searchfunction = this.state.searchfunction;
+    let current_searchvalue = value;
+    let current_response = null;
+    switch (current_searchfunction) {
+      case "EventName":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/event?eventname=${value}`)
+          .then(response => current_response = response).catch(error => console.log(error));
+        break;
+      case "MatriculationNumber":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/matricnumber?matricnumber=${value}`)
+          .then(response => current_response = response).catch(error => console.log(error));
+        break;
+      case "StudentName":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/studentname?studentname=${value}`)
+          .then(response => current_response = response).catch(error => console.log(error));
+        break;
+      case "NTUEmailAddress":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/ntuemailaddress?ntuemailaddress=${value}`)
+          .then(response => current_response = response).catch(error => console.log(error));
+        break;
+      case "EventEndYear":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/eventendyear?eventendyear=${value}`)
+          .then(response => current_response = response).catch(error => console.log(error));
+        break;
+      case "EventStartYear":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/eventstartyear?eventstartyear=${value}`)
+          .then(response => current_response = response).catch(error => console.log(error));
+        break;
+      case "EventPosition":
+        axios.get(`https://server.thexdream.net/slduAPI/api/search/eventposition?eventposition=${value}`)
+          .then(response => { current_response = response }).catch(error => console.log(error));
+        break;
+      default:
+        break;
     }
-
-    else if (this.state.searchfunction == "MatriculationNumber") {
-      axios.get(`https://server.thexdream.net/slduAPI/api/students/?matricnumber=${value}`)
-        .then(response =>
-          this.setState({
-            tableData: {
-              dynamic: "y",
-              columns: response.data.columns,
-              data: response.data.data
-            }
-          }))
-        .catch(error => console.log(error));
-    }
-    else if (this.state.searchfunction == "StudentName") {
-      axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname=${value}`)
-        .then(response =>
-          this.setState({
-            tableData: {
-              dynamic: "y",
-              columns: response.data.columns,
-              data: response.data.data
-            }
-          }))
-        .catch(error => console.log(error));
-    }
-
-    setTimeout(() => { console.log(this.state.tableData) }, 100); // state not update outside of loop
-
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+      this.setState({
+        tableData: {
+          dynamic: "y",
+          columns: [...current_response.data.columns],
+          data: [...current_response.data.data]
+        }
+      });
+      console.log(this.state.tableData);
+    }, 1000);
   };
 
   handleUpdateData = () => {
     let { allData } = this.state;
-    axios.get(`https://server.thexdream.net/slduAPI/api/events`)
-      .then(response => {
-        allData.EventName = response.data
-      }
-
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/event?eventname=`)
+      .then(response => allData.EventName = response.data
       ).catch(error => console.log(error));
-
-    axios.get(`https://server.thexdream.net/slduAPI/api/students/?matricnumber`)
-      .then(response =>
-        allData.MatriculationNumber = response.data.data
-      ).catch(error => console.log(error));
-
-    axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname`)
-      .then(response =>
-        allData.StudentName = response.data.data
-      ).catch(error => console.log(error));
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/matricnumber?matricnumber=`)
+      .then(response => allData.MatriculationNumber = response.data.data)
+      .catch(error => console.log(error));
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/studentname?studentname=`)
+      .then(response => allData.StudentName = response.data.data)
+      .catch(error => console.log(error));
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/ntuemailaddress?ntuemailaddress=`)
+      .then(response => allData.NTUEmailAddress = response.data.data)
+      .catch(error => console.log(error));
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/eventendyear?eventendyear=`)
+      .then(response => allData.EventEndYear = response.data.data)
+      .catch(error => console.log(error));
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/eventstartyear?eventstartyear=`)
+      .then(response => allData.EventStartYear = response.data.data)
+      .catch(error => console.log(error));
+    axios.get(`https://server.thexdream.net/slduAPI/api/search/eventposition?eventposition=`)
+      .then(response => allData.EventPosition = response.data.data)
+      .catch(error => console.log(error));
     this.setState({ allData: allData });
-
   }
 
   handlePickData = (value) => {
     let { allData } = this.state;
-    let selectedData = [];
-    if (Object.keys(allData).length > 1) {
+    let selectedData = new Set();
+    if (Object.keys(allData).length > 2) {
       switch (value) {
         case "EventName":
           for (let i = 0; i < allData.EventName.length; i++)
-            selectedData.push(allData.EventName[i].TABLE_NAME);
+            selectedData.add(allData.EventName[i].TABLE_NAME);
           break;
         case "MatriculationNumber":
           for (let i = 0; i < allData.MatriculationNumber.length; i++)
-            selectedData.push(allData.MatriculationNumber[i].MATRICNUMBER); //change tablename to the correct value
+            selectedData.add(allData.MatriculationNumber[i].MATRICNUMBER); //change tablename to the correct value
           break;
         case "StudentName":
           for (let i = 0; i < allData.StudentName.length; i++)
-            selectedData.push(allData.StudentName[i].STUDENTNAME); //change tablename to the correct value
+            selectedData.add(allData.StudentName[i].STUDENTNAME); //change tablename to the correct value
+          break;
+        case "NTUEmailAddress":
+          for (let i = 0; i < allData.NTUEmailAddress.length; i++)
+            selectedData.add(allData.NTUEmailAddress[i].NTUEMAILADDRESS); //change tablename to the correct value
+          break;
+        case "EventEndYear":
+          for (let i = 0; i < allData.EventEndYear.length; i++)
+            selectedData.add(allData.EventEndYear[i].EVENTENDYEAR); //change tablename to the correct value
+          break;
+        case "EventStartYear":
+          for (let i = 0; i < allData.EventStartYear.length; i++)
+            selectedData.add(allData.EventStartYear[i].EVENTSTARTYEAR); //change tablename to the correct value
+          break;
+        case "EventPosition":
+          for (let i = 0; i < allData.EventPosition.length; i++)
+            selectedData.add(allData.EventPosition[i].EVENTPOSITION); //change tablename to the correct value
           break;
         default:
           break;
       }
-      if (!selectedData.length)
+      //const SearchType = ['EventName', 'MatriculationNumber', 'StudentName', 'NTUEmailAddress', 'EventEndYear', 'EventStartYear', 'EventPosition'];
+
+      if (!selectedData.size)
         selectedData = [];
-      this.setState({ data: selectedData });
+      this.setState({ data: [...selectedData] });
       setTimeout(() => {
         console.log("data:", this.state.data);
       }, 50)
@@ -219,36 +248,12 @@ export default class SearchFunction extends Component {
         }
         <p>{}</p>
         {
-          this.state.tableData.data.length ? <DynamicTable data={this.state.tableData} /> : <></>
+          this.state.isLoading ? <div><Spin indicator={antIcon} /></div> :
+            <div>{this.state.tableData.data.length ? <DynamicTable data={this.state.tableData} /> : <></>}</div>
         }
 
-        <Divider> Dynamic search fucntion</Divider>
-        <p>Select Type of File</p>
-        <Select
-          showSearch
-          placeholder="Select Type of File"
-          style={{ width: 300 }}
-          onChange={this.handleSearchFunctionChange}>
-          {SearchType.map(type => (
-            <Option key={type}>{type}</Option>
-          ))}
-        </Select>
       </div>
     );
   }
 
 }
-
-//{this.state.tableData.length ? <DynamicTable data={this.state.tableData} /> : null}
-
-//Date selector: <MonthPicker onChange={onChange} placeholder="Select month" />
-/*    <Select
-          showSearch
-          placeholder="Select a target"
-          style={{ width: 300 }}
-          onChange={this.handleSearchDataChange} >
-          {this.state.data.map(data => (
-            <Option key={data}>{data}</Option>
-          ))}
-        </Select>
-*/
