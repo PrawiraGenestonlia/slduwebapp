@@ -95,9 +95,11 @@ export default class StudentProfileContent extends Component {
             <br></br>
           </>
           <p>{}</p>
-          <Descriptions title="SKILLSET DEVELOPMENT OVERVIEW">
+          <Descriptions title="SKILLSET DEVELOPMENT OVERVIEW"></Descriptions>
+          <header><b>Student Profile</b></header>
+          <line />
+          <Descriptions>
             <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
-            <Descriptions.Item>{}</Descriptions.Item>
             <Descriptions.Item label="Matriculation Number">{this.state.StudentProfileResponse.matricnumber}</Descriptions.Item>
           </Descriptions>
           <header><b>Skillset Distribution</b></header>
