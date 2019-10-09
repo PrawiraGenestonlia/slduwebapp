@@ -146,7 +146,7 @@ export default class ViewUploadedFiles extends Component {
 
         <List
           size="large"
-          header={[<div>Uploaded Files</div>, <br />, <Button onClick={this.update}>Update</Button>]}
+          header={[<h2>Uploaded Files</h2>, <br />]}
           bordered
           dataSource={this.state.Files.map(data => (data.Tables_in_mydb))}
           renderItem={(item, index) => (
