@@ -96,12 +96,14 @@ export default class StudentProfileContent extends Component {
           </>
           <p>{}</p>
           <Descriptions title="SKILLSET DEVELOPMENT OVERVIEW"></Descriptions>
-          <header><b>Student Profile</b></header>
-          <line />
-          <Descriptions>
-            <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
-            <Descriptions.Item label="Matriculation Number">{this.state.StudentProfileResponse.matricnumber}</Descriptions.Item>
-          </Descriptions>
+          <section>
+            <header><b>Student Profile</b></header>
+            <p>{}</p>
+            <Descriptions>
+              <Descriptions.Item label="Student Name">{this.state.StudentProfileResponse.studentname}</Descriptions.Item>
+              <Descriptions.Item label="Matriculation Number">{this.state.StudentProfileResponse.matricnumber}</Descriptions.Item>
+            </Descriptions>
+          </section>
           <header><b>Skillset Distribution</b></header>
           <line />
           <p>The data below shows the skills distribution based on your participation in workshops and events.</p>
