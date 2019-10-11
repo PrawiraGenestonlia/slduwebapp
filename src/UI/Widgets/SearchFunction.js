@@ -129,7 +129,7 @@ export default class SearchFunction extends Component {
   handleUpdateData = () => {
     let { allData } = this.state;
     axios.get(`https://server.thexdream.net/slduAPI/api/search/event?eventname=`)
-      .then(response => allData.EventName = response.data
+      .then(response => allData.EventName = response.data.data
       ).catch(error => console.log(error));
     axios.get(`https://server.thexdream.net/slduAPI/api/search/matricnumber?matricnumber=`)
       .then(response => allData.MatriculationNumber = response.data.data)
@@ -142,6 +142,7 @@ export default class SearchFunction extends Component {
       .catch(error => console.log(error));
     axios.get(`https://server.thexdream.net/slduAPI/api/search/eventendyear?eventendyear=`)
       .then(response => allData.EventEndYear = response.data.data)
+      // .then(response => console.log(response.data.data))
       .catch(error => console.log(error));
     axios.get(`https://server.thexdream.net/slduAPI/api/search/eventstartyear?eventstartyear=`)
       .then(response => allData.EventStartYear = response.data.data)
@@ -159,7 +160,7 @@ export default class SearchFunction extends Component {
       switch (value) {
         case "EventName":
           for (let i = 0; i < allData.EventName.length; i++)
-            selectedData.add(allData.EventName[i].TABLE_NAME);
+            selectedData.add(allData.EventName[i].EVENTNAME);
           break;
         case "MatriculationNumber":
           for (let i = 0; i < allData.MatriculationNumber.length; i++)
@@ -174,12 +175,17 @@ export default class SearchFunction extends Component {
             selectedData.add(allData.NTUEmailAddress[i].NTUEMAILADDRESS); //change tablename to the correct value
           break;
         case "EventEndYear":
-          for (let i = 0; i < allData.EventEndYear.length; i++)
-            selectedData.add(allData.EventEndYear[i].EVENTENDYEAR); //change tablename to the correct value
+          for (let i = 0; i < allData.EventEndYear.length; i++) {
+            var date = new Date(allData.EventEndYear[i].EVENTENDDATE);
+            selectedData.add(date.getFullYear().toString()); //change tablename to the correct value
+          }
+
           break;
         case "EventStartYear":
-          for (let i = 0; i < allData.EventStartYear.length; i++)
-            selectedData.add(allData.EventStartYear[i].EVENTSTARTYEAR); //change tablename to the correct value
+          for (let i = 0; i < allData.EventStartYear.length; i++) {
+            var date2 = new Date(allData.EventEndYear[i].EVENTSTARTDATE);
+            selectedData.add(date2.getFullYear().toString()); //change tablename to the correct value
+          }
           break;
         case "EventPosition":
           for (let i = 0; i < allData.EventPosition.length; i++)
