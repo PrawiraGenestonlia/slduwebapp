@@ -2,6 +2,7 @@
   "name": "slduwebapp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://server.thexdream.net/",
   "proxy": "https://server.thexdream.net/slduAPI/",
   "dependencies": {
     "antd": "^3.19.2",
