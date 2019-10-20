@@ -176,15 +176,15 @@ export default class SearchFunction extends Component {
           break;
         case "EventEndYear":
           for (let i = 0; i < allData.EventEndYear.length; i++) {
-            var date = new Date(allData.EventEndYear[i].EVENTENDDATE);
-            selectedData.add(date.getFullYear().toString()); //change tablename to the correct value
+            var date = new Date(allData.EventEndYear[i].ENDDATE);
+            if (date.getFullYear().toString().length === 4) selectedData.add(date.getFullYear().toString()); //change tablename to the correct value
           }
 
           break;
         case "EventStartYear":
           for (let i = 0; i < allData.EventStartYear.length; i++) {
-            var date2 = new Date(allData.EventEndYear[i].EVENTSTARTDATE);
-            selectedData.add(date2.getFullYear().toString()); //change tablename to the correct value
+            var date2 = new Date(allData.EventEndYear[i].STARTDATE);
+            if (date2.getFullYear().toString().length === 4) selectedData.add(date2.getFullYear().toString()); //change tablename to the correct value
           }
           break;
         case "EventPosition":

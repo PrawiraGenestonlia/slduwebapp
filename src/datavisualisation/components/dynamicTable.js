@@ -4,6 +4,9 @@ import Student from '../../UI/Student';
 
 const pagination = { position: 'none' };
 
+
+
+
 const staticColumns = [{
   title: 'Timestamp',
   dataIndex: 'TIMESTAMP',
@@ -43,21 +46,21 @@ const staticColumns = [{
   render: text => <font>{text}</font>,
 }];
 
-function columnsBuilder(columnsArr) {
-  const builtDynamicColumns = [];
-  for (let i = 0; i < columnsArr.length; i++) {
-    builtDynamicColumns.push({
-      title: columnsArr[i],
-      dataIndex: columnsArr[i],
-      key: columnsArr[i],
-      render: text => columnsArr[i] == 'MATRICNUMBER' ? <Student matricnumber={text} /> : <font>{text}</font>,
-      width: `${80 / columnsArr.length}%`,
-      sorter: (a, b) => a - b,
-      sortDirections: ['descend', 'ascend'],
-    })
-  }
-  return builtDynamicColumns;
-}
+// function columnsBuilder(columnsArr) {
+//   const builtDynamicColumns = [];
+//   for (let i = 0; i < columnsArr.length; i++) {
+//     builtDynamicColumns.push({
+//       title: columnsArr[i],
+//       dataIndex: columnsArr[i],
+//       key: columnsArr[i],
+//       render: text => columnsArr[i] == 'MATRICNUMBER' ? <Student matricnumber={text} /> : <font>{text}</font>,
+//       width: `${80 / columnsArr.length}%`,
+//       sorter: (a, b) => sorter(columnsArr[i]),
+//       defaultSortOrder: 'ascend',
+//     })
+//   }
+//   return builtDynamicColumns;
+// }
 
 export default class DynamicTable extends Component {
   constructor(props) {
@@ -75,18 +78,39 @@ export default class DynamicTable extends Component {
       this.setState({ shouldDynamic: nextProps.data.dynamic });
       this.setState({ columnsArr: nextProps.data.columns });
     }
-    setTimeout(() => { this.setState({ columns: columnsBuilder(this.state.columnsArr) }) }, 20);
+    setTimeout(() => { this.setState({ columns: this.columnsBuilder(this.state.columnsArr) }) }, 20);
   }
   componentWillMount() {
     if ((this.state.shouldDynamic == "y" || this.state.shouldDynamic == "Y"))
-      this.setState({ columns: columnsBuilder(this.state.columnsArr) });
+      this.setState({ columns: this.columnsBuilder(this.state.columnsArr) });
     else
       this.setState({ columns: staticColumns });
+  }
+  columnsBuilder = (columnsArr) => {
+    const builtDynamicColumns = [];
+    for (let i = 0; i < columnsArr.length; i++) {
+      builtDynamicColumns.push({
+        title: columnsArr[i],
+        dataIndex: columnsArr[i],
+        key: columnsArr[i],
+        render: text => columnsArr[i] == 'MATRICNUMBER' ? <Student matricnumber={text} /> : <font>{text}</font>,
+        width: `${80 / columnsArr.length}%`,
+        sorter: (a, b) => this.sorter(a, b, columnsArr[i]),
+        defaultSortOrder: 'ascend',
+      })
+    }
+    return builtDynamicColumns;
+  }
+  sorter = (a, b, columns) => {
+    const A = a[columns].toUpperCase();
+    const B = b[columns].toUpperCase();
+
+    return ((A > B) ? 1 : -1);
   }
   render() {
     return (
       <div>
-        <Table pagination={false} columns={this.state.columns} dataSource={this.state.data} />
+        <Table pagination={true} columns={this.state.columns} dataSource={this.state.data} />
         {console.log("dynamic columns:", this.state.columns)}
       </div>
     )

@@ -109,7 +109,7 @@ export default class ViewEvents extends Component {
               )
             })}
           </Select>
-          <p>{}</p>
+          {/* <p>{}</p>
           {
             this.state.selected_files ?
               <>
@@ -122,6 +122,8 @@ export default class ViewEvents extends Component {
                 <Button disabled>Sort Matriculation Number</Button>
               </>
           }
+          <p>{}</p> */}
+          <p>{}</p>
           <p>{}</p>
           <DynamicTable data={this.state.DynamicFile} />
           <p>{}</p>
