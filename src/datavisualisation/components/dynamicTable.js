@@ -52,6 +52,8 @@ function columnsBuilder(columnsArr) {
       key: columnsArr[i],
       render: text => columnsArr[i] == 'MATRICNUMBER' ? <Student matricnumber={text} /> : <font>{text}</font>,
       width: `${80 / columnsArr.length}%`,
+      sorter: (a, b) => a - b,
+      sortDirections: ['descend', 'ascend'],
     })
   }
   return builtDynamicColumns;

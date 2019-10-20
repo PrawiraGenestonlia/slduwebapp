@@ -39,7 +39,7 @@ export default class HomePageContent extends Component {
 
   handleSearchDataChange = value => {
     if (this.state.searchfunction == "MatriculationNumber") {
-      axios.get(`https://server.thexdream.net/slduAPI/api/skillset?matricnumber=${value}`)
+      axios.get(`http://localhost:8080/api/skillset?matricnumber=${value}`)
         .then(response =>
           this.setState({
             studentProfileResponse: response.data
@@ -48,7 +48,7 @@ export default class HomePageContent extends Component {
         .catch(error => console.log(error));
     }
     else if (this.state.searchfunction == "StudentName") {
-      axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname=${value}`)
+      axios.get(`http://localhost:8080/api/students/?studentname=${value}`)
         .then(response =>
           this.setState({
             tableData: {
@@ -76,12 +76,12 @@ export default class HomePageContent extends Component {
   handleUpdateData = () => {
     let { allData } = this.state;
 
-    axios.get(`https://server.thexdream.net/slduAPI/api/students/?matricnumber`)
+    axios.get(`http://localhost:8080/api/students/?matricnumber`)
       .then(response =>
         allData.MatriculationNumber = response.data.data
       ).catch(error => console.log(error));
 
-    axios.get(`https://server.thexdream.net/slduAPI/api/students/?studentname`)
+    axios.get(`http://localhost:8080/api/students/?studentname`)
       .then(response =>
         allData.StudentName = response.data.data
       ).catch(error => console.log(error));

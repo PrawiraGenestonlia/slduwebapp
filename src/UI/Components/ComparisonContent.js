@@ -6,6 +6,7 @@ import axios from 'axios';
 import { resolve } from 'url';
 import { thisExpression } from '@babel/types';
 import Student from '../Student';
+import DynamicTable from '../../datavisualisation/components/dynamicTable';
 
 
 const { Content } = Layout;
@@ -28,14 +29,24 @@ export default class ComparisonContent extends Component {
       selected_num_arr: [],
       compared_results_common_participants: {},
       compared_results_common_absentees: {},
-      isCommonPart: 1
+      isCommonPart: 1,
+      commonPart: {
+        dynamic: [],
+        columns: [],
+        data: []
+      },
+      commonAbs: {
+        dynamic: [],
+        columns: [],
+        data: []
+      },
     };
   }
 
   Event1 = value => {
     console.log(value);
     this.setState({ SelectedEvent1: value });
-    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles/?filename=${value}`)
+    axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
           DynamicFileOne: response.data
@@ -49,7 +60,7 @@ export default class ComparisonContent extends Component {
   Event2 = value => {
     console.log(value);
     this.setState({ SelectedEvent2: value });
-    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles/?filename=${value}`)
+    axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
           DynamicFileTwo: response.data
@@ -63,7 +74,7 @@ export default class ComparisonContent extends Component {
   FindAbsentee = (event1, event2) => {
     // console.log(event1);
     // console.log(event2);
-    axios.get(`https://server.thexdream.net/slduAPI/api/compare_absentees2events?event1=${event1}&event2=${event2}`)
+    axios.get(`http://localhost:8080/api/compare_absentees2events?event1=${event1}&event2=${event2}`)
       .then(response => {
         this.setState({
           Absentees: response.data
@@ -99,28 +110,45 @@ export default class ComparisonContent extends Component {
 
   handleCompareCommonParticipants = (events_arr) => {
     this.setState({ isCommonPart: 1 });
-    axios.post("https://server.thexdream.net/slduAPI/api/commonparticipants", { Events: events_arr })
+    axios.post("http://localhost:8080/api/commonparticipants", { Events: events_arr })
       .then(response => {
         console.log(response.data);
-        if (response.status === 200)
-          this.setState({ compared_results_common_participants: { ...response.data } });
+        if (response.status === 200) {
+          // this.setState({ compared_results_common_participants: { ...response.data } });
+          this.setState({
+            commonPart: {
+              dynamic: "y",
+              columns: [...Object.keys(response.data.commonparticipants[0])],
+              data: [...response.data.commonparticipants]
+            }
+          }, () => { console.log(this.state.commonAbs) });
+        }
+
       })
       .catch(error => console.log(error));
   }
 
   handleCompareCommonAbsentees = (events_arr) => {
     this.setState({ isCommonPart: 0 });
-    axios.post("https://server.thexdream.net/slduAPI/api/commonabsentees", { Events: events_arr })
+    axios.post("http://localhost:8080/api/commonabsentees", { Events: events_arr })
       .then(response => {
         console.log(response.data);
-        if (response.status === 200)
-          this.setState({ compared_results_common_absentees: { ...response.data } });
+        if (response.status === 200) {
+          // this.setState({ compared_results_common_absentees: { ...response.data } });
+          this.setState({
+            commonAbs: {
+              dynamic: "y",
+              columns: [...Object.keys(response.data.common_absentees[0])],
+              data: [...response.data.common_absentees]
+            }
+          }, () => { console.log(this.state.commonAbs) });
+        }
       })
       .catch(error => console.log(error));
   }
 
   componentDidMount() {
-    axios.get("https://server.thexdream.net/slduAPI/api/events")
+    axios.get("http://localhost:8080/api/events")
       .then(response => {
         this.setState({ Events: response.data });
         console.log(response.data)
@@ -131,7 +159,7 @@ export default class ComparisonContent extends Component {
   render() {
     console.log(this.state.selected_event_to_be_compared);
     let SelectFile = this.state.Events.map(files =>
-      ({ label: files.TABLE_NAME, value: files.TABLE_NAME })
+      ({ label: files.FILENAME, value: files.FILENAME })
     );
     let NumberOfEvents = [];
     this.state.Events && this.state.Events.forEach((v, i) => { NumberOfEvents.push(i + 1) });
@@ -191,11 +219,12 @@ export default class ComparisonContent extends Component {
 
           <div>
             {
-              Object.keys(this.state.compared_results_common_participants).length && this.state.isCommonPart ?
+              Object.keys(this.state.commonPart).length && this.state.isCommonPart ?
                 <>
                   <Divider type='horizontal' />
                   <p>Participated in the above events</p>
-                  <table id="StudentProfileTable" border="1" align="left">
+                  <DynamicTable data={this.state.commonPart} />
+                  {/* <table id="StudentProfileTable" border="1" align="left">
                     <tr id="StudentProfileTableTr">
                       <th>STUDENT NAME</th>
                       <th>MATRIC NO</th>
@@ -208,7 +237,7 @@ export default class ComparisonContent extends Component {
                         </tr>
                       )
                     })}
-                  </table>
+                  </table> */}
                 </>
                 :
                 <></>
@@ -217,11 +246,12 @@ export default class ComparisonContent extends Component {
 
           <div>
             {
-              Object.keys(this.state.compared_results_common_absentees).length && !this.state.isCommonPart ?
+              Object.keys(this.state.commonAbs).length && !this.state.isCommonPart ?
                 <>
                   <Divider type='horizontal' />
                   <p>Absent from the above events</p>
-                  <table id="StudentProfileTable" border="1" align="left">
+                  <DynamicTable data={this.state.commonAbs} />
+                  {/* <table id="StudentProfileTable" border="1" align="left">
                     <tr id="StudentProfileTableTr">
                       <th>STUDENT NAME</th>
                       <th>MATRIC NO</th>
@@ -234,126 +264,12 @@ export default class ComparisonContent extends Component {
                         </tr>
                       )
                     })}
-                  </table>
+                  </table> */}
                 </>
                 :
                 <></>
             }
           </div>
-
-
-
-          {/* 
-          <Divider type="horizontal" />
-          <h3>OLD</h3>
-          <p>Select Event 1</p>
-
-          <Select showSearch
-            style={{ width: 300 }}
-            placeholder="Select a File"
-            optionFilterProp="children"
-            onChange={this.Event1}>
-            {SelectFile.map(opt => {
-              return (<Option value={opt.value} disabled={opt.value === this.state.SelectedEvent2 ? true : false} >{opt.label}</Option>
-              )
-            })}
-          </Select>
-
-          <p>{}</p>
-          <p>Select Event 2</p>
-
-          <Select showSearch
-            style={{ width: 300 }}
-            placeholder="Select a File"
-            optionFilterProp="children"
-            onChange={this.Event2}>
-            {SelectFile.map(opt => {
-              return (<Option value={opt.value} disabled={opt.value === this.state.SelectedEvent1 ? true : false} >{opt.label}</Option>
-              )
-            })}
-          </Select>
-
-
-          <p>{}</p>
-          <Button onClick={() => { this.FindAbsentee(this.state.SelectedEvent1, this.state.SelectedEvent2) }}>Submit</Button>
-
-          <div>
-            {
-              this.state.Absentees.absent2events ?
-                <>
-                  <Divider type='horizontal' />
-                  {this.state.Absentees.absent2events.length ? <><Divider type='horizontal' /> <p>list of participants that absent from both events</p> </> : null}
-                  {this.state.Absentees.absent2events.map(data => <ol>{data}</ol>)}
-                </>
-                : null
-            }
-          </div>
-          <div>
-            {
-              this.state.Absentees.absentevent1 ?
-                <>
-                  <Divider type='horizontal' />
-                  <p>Absenteees for <font style={{ color: 'red' }}>{this.state.SelectedEvent1}</font></p>
-                  <p>numberofabsentees: {this.state.Absentees.absentevent1.numberofabsentees}</p>
-                  <table id="StudentProfileTable" border="1" align="left">
-                    <tr id="StudentProfileTableTr">
-                      <th>STUDENT NAME</th>
-                      <th>MATRIC NO</th>
-                    </tr>
-                    {this.state.Absentees.absentevent1.event1_absentees.map((data) => {
-                      return (
-                        <tr id="StudentProfileTable">
-                          <td>{data.studentname}</td>
-                          <td>{data.matricnumber}</td>
-                        </tr>
-                      )
-                    })}
-                  </table>
-                </>
-                :
-                <></>
-            }
-          </div>
-          <div>
-            {
-              this.state.Absentees.absentevent2 ?
-                <>
-                  <Divider type='horizontal' />
-                  <p>Absenteees for <font style={{ color: 'red' }}>{this.state.SelectedEvent2}</font></p>
-                  <p>numberofabsentees: {this.state.Absentees.absentevent2.numberofabsentees}</p>
-                  <table id="StudentProfileTable" border="1" align="left">
-                    <tr id="StudentProfileTableTr">
-                      <th>STUDENT NAME</th>
-                      <th>MATRIC NO</th>
-                    </tr>
-                    {this.state.Absentees.absentevent2.event2_absentees.map((data) => {
-                      return (
-                        <tr id="StudentProfileTable">
-                          <td>{data.studentname}</td>
-                          <td>{data.matricnumber}</td>
-                        </tr>
-                      )
-                    })}
-                  </table>
-
-                </>
-                :
-                <></>
-            }
-          </div>
-          <div>
-            {
-              this.state.Absentees.attendbothevents ?
-                <>
-                  <Divider type='horizontal' />
-                  <p>Students that attended both events</p>
-                  <p>number: {this.state.Absentees.attendbothevents.number}</p>
-                  <p>numberofabsentees: {this.state.Absentees.attendbothevents.numberofabsentees}</p>
-                  {this.state.Absentees.attendbothevents.attendboth.map(data => <ol>{data}</ol>)}
-                </> : null
-            }
-          </div> */}
-
         </Content>
 
       </Layout>

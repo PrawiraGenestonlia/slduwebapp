@@ -30,7 +30,7 @@ export default class ViewEvents extends Component {
   handleChange = value => {
     console.log(value);
     this.setState({ selected_files: value });
-    axios.get(`https://server.thexdream.net/slduAPI/api/uploadedfiles/?filename=${value}`)
+    axios.get(`http://localhost:8080/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
           DynamicFile: {
@@ -47,7 +47,7 @@ export default class ViewEvents extends Component {
 
   sortSN = value => {
     console.log(value);
-    axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}&sortstudentname=1`)
+    axios.get(`http://localhost:8080/api/events/?eventname=${value}&sortstudentname=1`)
       .then((response) => {
         this.setState({
           DynamicFile: {
@@ -64,7 +64,7 @@ export default class ViewEvents extends Component {
 
   sortMN = value => {
     console.log(value);
-    axios.get(`https://server.thexdream.net/slduAPI/api/events/?eventname=${value}&sortmatricnumber=1`)
+    axios.get(`http://localhost:8080/api/events/?eventname=${value}&sortmatricnumber=1`)
       .then((response) => {
         this.setState({
           DynamicFile: {
@@ -80,7 +80,7 @@ export default class ViewEvents extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://server.thexdream.net/slduAPI/api/uploadedfiles')
+    axios.get('http://localhost:8080/api/uploadedfiles')
       .then(response => {
         this.setState({ Files: response.data });
         console.log(response.data)
