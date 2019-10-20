@@ -53,6 +53,7 @@ export default class SearchFunction extends Component {
       filename: [],
       current_response: '',
       last_current_response: '',
+      search_value: '',
     };
 
     this.handleSearchDataChange = this.handleSearchDataChange.bind(this);
@@ -71,6 +72,8 @@ export default class SearchFunction extends Component {
     //
     this.setState({
       searchfunction: value,
+    }, () => {
+      this.setState({ search_value: '' })
     });
     this.handleUpdateData();
     console.log(this.state.allData);
@@ -79,6 +82,7 @@ export default class SearchFunction extends Component {
 
   //TODO: USE THIS ONE
   handleSearchDataChange = value => {
+    this.setState({ search_value: value });
     this.setState({ isLoading: true });
     let current_searchfunction = this.state.searchfunction;
     switch (current_searchfunction) {
@@ -232,7 +236,7 @@ export default class SearchFunction extends Component {
         {
           this.state.data.length ?
             <AutoComplete
-              //value= {this.state.AutoCompleteValue}
+              value={this.state.search_value}
               style={{ width: 200 }}
               dataSource={this.state.data}
               placeholder="Key In Here"
@@ -242,7 +246,7 @@ export default class SearchFunction extends Component {
               onChange={this.handleSearchDataChange}
             /> :
             <AutoComplete
-              // value= {this.state.AutoCompleteValue}
+              value={this.state.search_value}
               style={{ width: 200 }}
               dataSource={this.state.data}
               placeholder="Key In Here"
