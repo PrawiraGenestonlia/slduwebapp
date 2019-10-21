@@ -80,7 +80,7 @@ export default class ViewEvents extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8002/api/uploadedfiles')
+    axios.get(`http://localhost:8002/api/uploadedfiles`)
       .then(response => {
         this.setState({ Files: response.data });
         console.log(response.data)

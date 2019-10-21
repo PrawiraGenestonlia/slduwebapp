@@ -53,7 +53,7 @@ export default class SearchFileContents extends Component {
 
 
   componentDidMount() {
-    /*axios.get('http://localhost:8002/api/events')
+    /*axios.get(`http://localhost:8002/api/events`)
       .then(response =>
         this.setState({ Events: response.data })
       )

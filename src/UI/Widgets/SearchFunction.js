@@ -61,7 +61,7 @@ export default class SearchFunction extends Component {
   };
 
   handleSearchFilename = () => {
-    axios.get('http://localhost:8002/api/uploadedfiles')
+    axios.get(`http://localhost:8002/api/uploadedfiles`)
       .then((response) => {
         this.setState({ data: response.data.data });
         console.log(response);

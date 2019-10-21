@@ -110,7 +110,7 @@ export default class ComparisonContent extends Component {
 
   handleCompareCommonParticipants = (events_arr) => {
     this.setState({ isCommonPart: 1 });
-    axios.post("http://localhost:8002/api/commonparticipants", { Events: events_arr })
+    axios.post(`http://localhost:8002/api/commonparticipants`, { Events: events_arr })
       .then(response => {
         console.log(response.data);
         if (response.status === 200) {
@@ -130,7 +130,7 @@ export default class ComparisonContent extends Component {
 
   handleCompareCommonAbsentees = (events_arr) => {
     this.setState({ isCommonPart: 0 });
-    axios.post("http://localhost:8002/api/commonabsentees", { Events: events_arr })
+    axios.post(`http://localhost:8002/api/commonabsentees`, { Events: events_arr })
       .then(response => {
         console.log(response.data);
         if (response.status === 200) {
@@ -148,7 +148,7 @@ export default class ComparisonContent extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:8002/api/events")
+    axios.get(`http://localhost:8002/api/events`)
       .then(response => {
         this.setState({ Events: response.data });
         console.log(response.data)
