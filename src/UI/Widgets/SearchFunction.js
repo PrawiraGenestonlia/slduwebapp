@@ -12,6 +12,7 @@ const { Option } = Select;
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 const DataVizColors = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 const SearchType = ['EventName', 'MatriculationNumber', 'StudentName', 'NTUEmailAddress', 'EventEndYear', 'EventStartYear', 'EventPosition'];
+SearchType.sort();
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const { OptGroup } = AutoComplete;
 function onChange(date, dateString) {
@@ -120,14 +121,26 @@ export default class SearchFunction extends Component {
   };
 
   updateTableData = (response) => {
+    // console.log(response);
     this.setState({ isLoading: false });
-    this.setState({
-      tableData: {
-        dynamic: "y",
-        columns: [...response.data.columns],
-        data: [...response.data.data]
-      }
-    })
+    if (response.data.data) {
+      this.setState({
+        tableData: {
+          dynamic: "y",
+          columns: [...response.data.columns],
+          data: [...response.data.data]
+        }
+      });
+    } else {
+      this.setState({
+        tableData: {
+          dynamic: "y",
+          columns: [],
+          data: []
+        }
+      });
+    }
+
   }
 
   handleUpdateData = () => {
@@ -202,7 +215,9 @@ export default class SearchFunction extends Component {
 
       if (!selectedData.size)
         selectedData = [];
-      this.setState({ data: [...selectedData] });
+      const sortedData = [...selectedData];
+      sortedData.sort();
+      this.setState({ data: [...sortedData] });
       setTimeout(() => {
         console.log("data:", this.state.data);
       }, 50)

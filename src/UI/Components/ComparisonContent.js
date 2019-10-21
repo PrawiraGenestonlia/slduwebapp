@@ -118,7 +118,7 @@ export default class ComparisonContent extends Component {
           this.setState({
             commonPart: {
               dynamic: "y",
-              columns: [...Object.keys(response.data.commonparticipants[0])],
+              columns: response.data.commonparticipants.length > 0 ? [...Object.keys(response.data.commonparticipants[0])] : [],
               data: [...response.data.commonparticipants]
             }
           }, () => { console.log(this.state.commonAbs) });
@@ -138,7 +138,7 @@ export default class ComparisonContent extends Component {
           this.setState({
             commonAbs: {
               dynamic: "y",
-              columns: [...Object.keys(response.data.common_absentees[0])],
+              columns: response.data.common_absentees.length > 0 ? [...Object.keys(response.data.common_absentees[0])] : [],
               data: [...response.data.common_absentees]
             }
           }, () => { console.log(this.state.commonAbs) });
@@ -210,9 +210,9 @@ export default class ComparisonContent extends Component {
             <div style={{ marginLeft: '5px' }}>
               {
                 this.state.selected_event_to_be_compared.length > 1 ?
-                  <Button type="primary" onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
+                  <Button type="primary" onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees Against Active Student List</Button>
                   :
-                  <Button type="primary" disabled onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees</Button>
+                  <Button type="primary" disabled onClick={() => { this.handleCompareCommonAbsentees(this.state.selected_event_to_be_compared) }}>Compare Common Absentees Against Active Student List</Button>
               }
             </div>
           </div>

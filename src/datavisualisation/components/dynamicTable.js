@@ -4,9 +4,6 @@ import Student from '../../UI/Student';
 
 const pagination = { position: 'none' };
 
-
-
-
 const staticColumns = [{
   title: 'Timestamp',
   dataIndex: 'TIMESTAMP',
@@ -110,7 +107,7 @@ export default class DynamicTable extends Component {
   render() {
     return (
       <div>
-        <Table pagination={true} columns={this.state.columns} dataSource={this.state.data} />
+        <Table pagination={false} columns={this.state.columns} dataSource={this.state.data} />
         {console.log("dynamic columns:", this.state.columns)}
       </div>
     )

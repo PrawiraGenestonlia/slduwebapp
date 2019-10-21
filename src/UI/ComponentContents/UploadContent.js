@@ -22,7 +22,10 @@ export default class UploadContent extends Component {
               <UploadDuplicate upload_text="Single Event File" apiLink={`http://${window.location.hostname}:8002/api/uploadeventfile`} shouldShow={true} colors={DataVizColors} />
             </div>
             <div >
-              <UploadDuplicate upload_text="Student Master list" apiLink={`http://${window.location.hostname}:8002/api/uploadstudentmasterlist`} shouldShow={true} colors={DataVizColors} />
+              <UploadDuplicate upload_text="Active Student list" apiLink={`http://${window.location.hostname}:8002/api/uploadactivestudentlist`} shouldShow={true} colors={DataVizColors} />
+            </div>
+            <div >
+              <UploadDuplicate upload_text="Student Master list (including alumni)" apiLink={`http://${window.location.hostname}:8002/api/uploadstudentmasterlist`} shouldShow={true} colors={DataVizColors} />
             </div>
             <div>
               <UploadDuplicate upload_text="Atrribute to Skillset" apiLink={`http://${window.location.hostname}:8002/api/uploadattribute2skillset`} shouldShow={true} colors={DataVizColors} />
@@ -37,13 +40,3 @@ export default class UploadContent extends Component {
     );
   }
 }
-
-/* <
-
- <List
-              header={<div>Uploaded Files</div>}
-              bordered
-              dataSource={this.state.Files.map(data => ({title: data.Tables_in_mydb}))}
-              renderItem={item => <List.Item>{item.title}</List.Item>}
-              />
-*/

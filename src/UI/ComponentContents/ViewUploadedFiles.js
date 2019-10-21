@@ -29,8 +29,11 @@ export default class ViewUploadedFiles extends Component {
   componentWillMount() {
     axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles`)
       .then(response => {
-        this.setState({ Files: response.data });
-        console.log("files", this.state.Files);
+        // let fileSet = new Set([...response.data]);
+        // fileSet.forEach((filename) => {
+        //   if (filename.Tables_in_mydb === 'EVENTS') fileSet.delete(filename);
+        // })
+        this.setState({ Files: [...response.data] });
       }
       ).catch(error => console.log(error));
 
@@ -86,9 +89,14 @@ export default class ViewUploadedFiles extends Component {
   update = (value) => {
 
     axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles`)
-      .then(response =>
-        //network server error
-        this.setState({ Files: response.data })
+      .then(response => {
+        // let fileSet = new Set([...response.data]);
+        // fileSet.forEach((filename) => {
+        //   if (filename.Tables_in_mydb === 'EVENTS') fileSet.delete(filename);
+        // })
+        this.setState({ Files: [...response.data] });
+      }
+
       ).catch(error => console.log(error));
 
   }
@@ -152,9 +160,10 @@ export default class ViewUploadedFiles extends Component {
           renderItem={(item, index) => (
             <List.Item
               index={index}
+              style={{ backgroundColor: index % 2 ? '#F0F2F5' : '#FFFFFF' }}
               //actions = {[<a>delete</a>]}
               actions={[<Button onClick={this.showConfirm.bind(this, item, index)}>Delete</Button>, <Button onClick={this.ViewFile.bind(this, item)}>View File</Button>]}
-            >{item}</List.Item>
+            > {item}</List.Item>
           )
           }
         />

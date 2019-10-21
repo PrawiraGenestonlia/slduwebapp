@@ -105,7 +105,7 @@ export default class ViewEvents extends Component {
             optionFilterProp="children"
             onChange={this.handleChange}>
             {SelectFile.map(opt => {
-              return (<Option value={opt.value}>{opt.label}</Option>
+              if (opt.label != "EVENTS") return (<Option value={opt.value}>{opt.label}</Option>
               )
             })}
           </Select>
