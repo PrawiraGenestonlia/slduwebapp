@@ -61,7 +61,7 @@ export default class SearchFunction extends Component {
   };
 
   handleSearchFilename = () => {
-    axios.get('http://localhost:8080/api/uploadedfiles')
+    axios.get('http://localhost:8002/api/uploadedfiles')
       .then((response) => {
         this.setState({ data: response.data.data });
         console.log(response);
@@ -87,31 +87,31 @@ export default class SearchFunction extends Component {
     let current_searchfunction = this.state.searchfunction;
     switch (current_searchfunction) {
       case "EventName":
-        axios.get(`http://localhost:8080/api/search/event?eventname=${value}`)
+        axios.get(`http://localhost:8002/api/search/event?eventname=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "MatriculationNumber":
-        axios.get(`http://localhost:8080/api/search/matricnumber?matricnumber=${value}`)
+        axios.get(`http://localhost:8002/api/search/matricnumber?matricnumber=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "StudentName":
-        axios.get(`http://localhost:8080/api/search/studentname?studentname=${value}`)
+        axios.get(`http://localhost:8002/api/search/studentname?studentname=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "NTUEmailAddress":
-        axios.get(`http://localhost:8080/api/search/ntuemailaddress?ntuemailaddress=${value}`)
+        axios.get(`http://localhost:8002/api/search/ntuemailaddress?ntuemailaddress=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "EventEndYear":
-        axios.get(`http://localhost:8080/api/search/eventendyear?eventendyear=${value}`)
+        axios.get(`http://localhost:8002/api/search/eventendyear?eventendyear=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "EventStartYear":
-        axios.get(`http://localhost:8080/api/search/eventstartyear?eventstartyear=${value}`)
+        axios.get(`http://localhost:8002/api/search/eventstartyear?eventstartyear=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       case "EventPosition":
-        axios.get(`http://localhost:8080/api/search/eventposition?eventposition=${value}`)
+        axios.get(`http://localhost:8002/api/search/eventposition?eventposition=${value}`)
           .then(response => this.updateTableData(response)).catch(error => console.log(error));
         break;
       default:
@@ -132,26 +132,26 @@ export default class SearchFunction extends Component {
 
   handleUpdateData = () => {
     let { allData } = this.state;
-    axios.get(`http://localhost:8080/api/search/event?eventname=`)
+    axios.get(`http://localhost:8002/api/search/event?eventname=`)
       .then(response => allData.EventName = response.data.data
       ).catch(error => console.log(error));
-    axios.get(`http://localhost:8080/api/search/matricnumber?matricnumber=`)
+    axios.get(`http://localhost:8002/api/search/matricnumber?matricnumber=`)
       .then(response => allData.MatriculationNumber = response.data.data)
       .catch(error => console.log(error));
-    axios.get(`http://localhost:8080/api/search/studentname?studentname=`)
+    axios.get(`http://localhost:8002/api/search/studentname?studentname=`)
       .then(response => allData.StudentName = response.data.data)
       .catch(error => console.log(error));
-    axios.get(`http://localhost:8080/api/search/ntuemailaddress?ntuemailaddress=`)
+    axios.get(`http://localhost:8002/api/search/ntuemailaddress?ntuemailaddress=`)
       .then(response => allData.NTUEmailAddress = response.data.data)
       .catch(error => console.log(error));
-    axios.get(`http://localhost:8080/api/search/eventendyear?eventendyear=`)
+    axios.get(`http://localhost:8002/api/search/eventendyear?eventendyear=`)
       .then(response => allData.EventEndYear = response.data.data)
       // .then(response => console.log(response.data.data))
       .catch(error => console.log(error));
-    axios.get(`http://localhost:8080/api/search/eventstartyear?eventstartyear=`)
+    axios.get(`http://localhost:8002/api/search/eventstartyear?eventstartyear=`)
       .then(response => allData.EventStartYear = response.data.data)
       .catch(error => console.log(error));
-    axios.get(`http://localhost:8080/api/search/eventposition?eventposition=`)
+    axios.get(`http://localhost:8002/api/search/eventposition?eventposition=`)
       .then(response => allData.EventPosition = response.data.data)
       .catch(error => console.log(error));
     this.setState({ allData: allData });

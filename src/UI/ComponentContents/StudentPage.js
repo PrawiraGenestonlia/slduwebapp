@@ -15,7 +15,7 @@ export default class StudentPage extends Component {
     }
   }
   componentWillMount() {
-    axios.get(`http://localhost:8080/api/skillset?matricnumber=${this.state.studentMatricNo}`)
+    axios.get(`http://localhost:8002/api/skillset?matricnumber=${this.state.studentMatricNo}`)
       .then(response => {
         console.log(response.data);
         this.setState({
