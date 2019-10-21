@@ -27,7 +27,7 @@ export default class ViewUploadedFiles extends Component {
   };
 
   componentWillMount() {
-    axios.get(`http://localhost:8002/api/uploadedfiles`)
+    axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles`)
       .then(response => {
         this.setState({ Files: response.data });
         console.log("files", this.state.Files);
@@ -40,7 +40,7 @@ export default class ViewUploadedFiles extends Component {
 
     console.log(index);
 
-    axios.put(`http://localhost:8002/api/droptables/?tablename=${item}`)
+    axios.put(`http://${window.location.hostname}:8002/api/droptables/?tablename=${item}`)
       .then(response => {
         axios.get(` /api/uploadedfiles`)
           .then(response => console.log(response))
@@ -85,7 +85,7 @@ export default class ViewUploadedFiles extends Component {
   //Update files in database
   update = (value) => {
 
-    axios.get(`http://localhost:8002/api/uploadedfiles`)
+    axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles`)
       .then(response =>
         //network server error
         this.setState({ Files: response.data })
@@ -97,7 +97,7 @@ export default class ViewUploadedFiles extends Component {
 
   ViewFile = (item, index) => {
 
-    axios.get(`http://localhost:8002/api/uploadedfiles/?filename=${item}`)
+    axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles/?filename=${item}`)
       .then(response => {
         this.setState({ selected_file: item });
         this.setState({

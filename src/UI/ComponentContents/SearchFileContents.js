@@ -24,7 +24,7 @@ export default class SearchFileContents extends Component {
 
   Search = value => {
     console.log(value);
-    axios.get(`http://localhost:8002/api/students/?matricnumber=${value}`)
+    axios.get(`http://${window.location.hostname}:8002/api/students/?matricnumber=${value}`)
       .then(response =>
         this.setState({ event: response.data }))
       .catch(error => console.log(error));
@@ -32,7 +32,7 @@ export default class SearchFileContents extends Component {
 
   SearchName = value => {
     console.log(value);
-    axios.get(`http://localhost:8002/api/students/?studentname=${value}`)
+    axios.get(`http://${window.location.hostname}:8002/api/students/?studentname=${value}`)
       .then(response =>
         this.setState({ event: response.data }))
       .catch(error => console.log(error));
@@ -41,7 +41,7 @@ export default class SearchFileContents extends Component {
   handleChange = value => {
     console.log(value);
 
-    axios.get(`http://localhost:8002/api/events/?eventname=${value}`)
+    axios.get(`http://${window.location.hostname}:8002/api/events/?eventname=${value}`)
       .then(response => {
 
         this.setState({ event: response.data });
@@ -53,7 +53,7 @@ export default class SearchFileContents extends Component {
 
 
   componentDidMount() {
-    /*axios.get(`http://localhost:8002/api/events`)
+    /*axios.get(`http://${window.location.hostname}:8002/api/events`)
       .then(response =>
         this.setState({ Events: response.data })
       )

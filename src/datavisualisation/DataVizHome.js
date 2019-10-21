@@ -116,7 +116,7 @@ export default class DataVizHome extends Component {
 
         <div className='D4_Upload'>
           <h4>D4_Upload</h4>
-          <D4_Upload apiLink={`http://localhost:8002/api/uploadeventfile`} shouldShow={true} colors={DataVizColors} />
+          <D4_Upload apiLink={`http://${window.location.hostname}:8002/api/uploadeventfile`} shouldShow={true} colors={DataVizColors} />
         </div>
         <Divider type='horizontal' />
 

@@ -46,7 +46,7 @@ export default class ComparisonContent extends Component {
   Event1 = value => {
     console.log(value);
     this.setState({ SelectedEvent1: value });
-    axios.get(`http://localhost:8002/api/uploadedfiles/?filename=${value}`)
+    axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
           DynamicFileOne: response.data
@@ -60,7 +60,7 @@ export default class ComparisonContent extends Component {
   Event2 = value => {
     console.log(value);
     this.setState({ SelectedEvent2: value });
-    axios.get(`http://localhost:8002/api/uploadedfiles/?filename=${value}`)
+    axios.get(`http://${window.location.hostname}:8002/api/uploadedfiles/?filename=${value}`)
       .then((response) => {
         this.setState({
           DynamicFileTwo: response.data
@@ -74,7 +74,7 @@ export default class ComparisonContent extends Component {
   FindAbsentee = (event1, event2) => {
     // console.log(event1);
     // console.log(event2);
-    axios.get(`http://localhost:8002/api/compare_absentees2events?event1=${event1}&event2=${event2}`)
+    axios.get(`http://${window.location.hostname}:8002/api/compare_absentees2events?event1=${event1}&event2=${event2}`)
       .then(response => {
         this.setState({
           Absentees: response.data
@@ -110,7 +110,7 @@ export default class ComparisonContent extends Component {
 
   handleCompareCommonParticipants = (events_arr) => {
     this.setState({ isCommonPart: 1 });
-    axios.post(`http://localhost:8002/api/commonparticipants`, { Events: events_arr })
+    axios.post(`http://${window.location.hostname}:8002/api/commonparticipants`, { Events: events_arr })
       .then(response => {
         console.log(response.data);
         if (response.status === 200) {
@@ -130,7 +130,7 @@ export default class ComparisonContent extends Component {
 
   handleCompareCommonAbsentees = (events_arr) => {
     this.setState({ isCommonPart: 0 });
-    axios.post(`http://localhost:8002/api/commonabsentees`, { Events: events_arr })
+    axios.post(`http://${window.location.hostname}:8002/api/commonabsentees`, { Events: events_arr })
       .then(response => {
         console.log(response.data);
         if (response.status === 200) {
@@ -148,7 +148,7 @@ export default class ComparisonContent extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8002/api/events`)
+    axios.get(`http://${window.location.hostname}:8002/api/events`)
       .then(response => {
         this.setState({ Events: response.data });
         console.log(response.data)
