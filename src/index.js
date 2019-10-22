@@ -15,7 +15,7 @@ import StudentPage from './UI/ComponentContents/StudentPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/slduwebapp'>
       <Route exact path='/' component={SearchPage} />
       <Route exact path='/dataVisualisation' component={dataVisualisationHomePage} />
       <Route exact path='/olddataVisualisation' component={oldDataVisualisationHomePage} />
